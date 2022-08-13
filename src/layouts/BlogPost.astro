@@ -1,0 +1,80 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { Image } from "@astrojs/image/components";
+
+export interface Props {
+  content: {
+    title: string;
+    description: string;
+    pubDate?: string;
+    updatedDate?: string;
+    heroImage?: string;
+  };
+}
+
+const {
+  content: { title, description, pubDate, updatedDate, heroImage },
+} = Astro.props as Props;
+
+// Match the `heroImage` frontmatter string to its correct
+// Astro.glob() import of the file in the src/ directory.
+const assets = await Astro.glob("../assets/**/*");
+const heroImageAsset = assets.find((asset) => {
+  if (!heroImage) {
+    return false;
+  }
+  if (!asset.default?.src) {
+    return false;
+  }
+  const index = asset.default.src.indexOf("/assets/");
+  return asset.default.src.slice(index) === heroImage;
+});
+---
+
+<html>
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
+
+  <body>
+    <Header />
+    <main class="max-w-full my-0">
+      <article>
+        {
+          heroImageAsset && (
+            <Image
+              height={360}
+              src={heroImageAsset.default}
+              alt={title}
+              class="object-cover object-center w-screen max-w-[100vw] h-[60vh] -ml-9 -mr-4"
+            />
+          )
+        }
+        <div class="w-full max-w-3xl mx-auto space-y-3 mt-4">
+          <div class="space-y-1">
+            <h1>{title}</h1>
+            {
+              pubDate && (
+                <div>
+                  <time>{pubDate}</time>
+                </div>
+              )
+            }
+            {
+              updatedDate && (
+                <div>
+                  Last updated on <time>{updatedDate}</time>
+                </div>
+              )
+            }
+          </div>
+          <hr />
+          <slot />
+        </div>
+      </article>
+    </main>
+    <Footer />
+  </body>
+</html>

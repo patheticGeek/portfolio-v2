@@ -1,0 +1,60 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { getProjects } from "src/lib/github";
+
+const title = "Geek's Projects";
+const desc = "Here are some of the things I've somehow made work";
+
+const projects = await getProjects();
+---
+
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <BaseHead title={title} description={desc} />
+  </head>
+  <body>
+    <Header title={title} />
+    <main>
+      <h1>Projects</h1>
+
+      <p>
+        {desc}
+        <br />
+        You can also find some smaller experiments on my
+        <a href="https://codesandbox.io/u/patheticGeek">CodeSandbox</a>
+        {" and "}
+        <a href="https://codepen.io/patheticgeek">CodePen</a>
+      </p>
+
+      <ul class="mt-4 space-y-4">
+        {
+          projects.map((project) => (
+            <li class="space-y-1">
+              <div class="flex items-end justify-between">
+                <a
+                  class="font-medium text-white"
+                  href={project.website || project.github_url}
+                  target="_blank"
+                >
+                  {project.name}
+                </a>
+              </div>
+              <div class="flex items-center space-x-2 overflow-scroll whitespace-nowrap no-scrollbar">
+                {project.topics.map((topic) => (
+                  <div class="bg-zinc-800 text-zinc-300 rounded-full px-2 my-1 py-[1px] text-xs">
+                    {topic}
+                  </div>
+                ))}
+              </div>
+              <p class="mx-0.5 text-sm text-zinc-200">{project.description}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </main>
+    <Footer />
+  </body>
+</html>

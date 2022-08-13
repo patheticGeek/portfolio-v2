@@ -1,0 +1,23 @@
+---
+import { NAV_LINKS, SITE_TITLE } from "../config";
+---
+
+<header class="px-3 py-3 border-b border-zinc-700 flex items-center md:text-sm">
+  <div
+    class="w-full max-w-3xl mx-auto flex items-center flex-col md:flex-row space-y-2 md:space-y-0"
+  >
+    <div class="md:ml-9">
+      {SITE_TITLE}
+    </div>
+
+    <nav class="flex items-center space-x-2 md:ml-auto">
+      {
+        NAV_LINKS.map((link) => (
+          <a class="px-1" href={link.href}>
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</header>

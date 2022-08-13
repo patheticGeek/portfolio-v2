@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply w-full min-h-screen flex flex-col bg-zinc-900 text-white selection:bg-amber-200 selection:bg-opacity-90 selection:text-black font-light;
+  }
+
+  main {
+    @apply w-full max-w-3xl mx-auto my-5 pl-9 pr-4;
+  }
+
+  a {
+    @apply text-zinc-400 hover:text-white underline underline-offset-4 decoration-transparent hover:decoration-slate-300 transition;
+  }
+
+  .before-style {
+    @apply absolute top-0 left-0 -translate-x-full px-1 text-slate-600 font-medium;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply relative my-2 font-medium tracking-wide;
+  }
+
+  :not(p, li) h1::before {
+    content: "#";
+    @apply before-style;
+  }
+
+  :not(p, li) h2::before {
+    content: "##";
+    @apply before-style;
+  }
+
+  :not(p, li) h3::before {
+    content: "###";
+    @apply before-style;
+  }
+
+  :not(p, li) h4::before {
+    content: "####";
+    @apply before-style;
+  }
+
+  :not(p, li) h5::before {
+    content: "#####";
+    @apply before-style;
+  }
+
+  p {
+    @apply my-2;
+  }
+
+  ul {
+    @apply my-1;
+  }
+  ul > li {
+    @apply relative my-0.5;
+  }
+  ul > li::before {
+    content: "=>";
+    @apply before-style;
+  }
+}
+
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
