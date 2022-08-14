@@ -3,9 +3,10 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { getProjects } from "src/lib/github";
+import { GITHUB_USERNAME } from "src/config";
 
 const title = "Geek's Projects";
-const desc = "Here are some of the things I've somehow made work";
+const desc = "Here are some of the things I've somehow made work.";
 
 const projects = await getProjects();
 ---
@@ -26,10 +27,10 @@ const projects = await getProjects();
         You can also find some smaller experiments on my
         <a href="https://codesandbox.io/u/patheticGeek">CodeSandbox</a>
         {" and "}
-        <a href="https://codepen.io/patheticgeek">CodePen</a>
+        <a href="https://codepen.io/patheticgeek">CodePen</a>.
       </p>
 
-      <ul class="mt-4 space-y-4">
+      <ul class="my-4 space-y-4">
         {
           projects.map((project) => (
             <li class="space-y-1">
@@ -54,7 +55,8 @@ const projects = await getProjects();
           ))
         }
       </ul>
+
+      <a href={`https://github.com/${GITHUB_USERNAME}`}>More on github {"->"}</a>
     </main>
-    <Footer />
   </body>
 </html>

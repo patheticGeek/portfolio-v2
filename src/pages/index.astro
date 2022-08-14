@@ -2,7 +2,7 @@
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
+import { SITE_TITLE, SITE_DESCRIPTION, HOME_LINKS } from "../config";
 ---
 
 <!DOCTYPE html>
@@ -15,20 +15,17 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
     <main>
       <h1>Hey there 👋</h1>
       <p>
-        People usually call me Geek, and I'm currently breaking things at Modfy.
-        Previously worked at Devsnest.
+        People usually call me Geek, and I'm currently breaking things at <a href="https://modfy.video/">Modfy</a>.
       </p>
-      <h3>Checkout some of my side projects:</h3>
+
+      <p>
+        Checkout some of <a href="/projects">my projects</a> or <a href="/blog">blogs</a>.
+      </p>
 
       <h3>Find me at:</h3>
       <ul>
-        <li><a>📨 Email</a></li>
-        <li><a>🧑‍💻 Github</a></li>
-        <li><a>🐦 Twitter</a></li>
-        <li><a>💼 LinkedIn</a></li>
-        <li><a>👻 Snapchat</a></li>
+        {HOME_LINKS.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
       </ul>
     </main>
-    <Footer />
   </body>
 </html>

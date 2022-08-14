@@ -13,7 +13,7 @@ import { NAV_LINKS, SITE_TITLE } from "../config";
     <nav class="flex items-center space-x-2 md:ml-auto">
       {
         NAV_LINKS.map((link) => (
-          <a class="px-1" href={link.href}>
+          <a class:list={["px-1", link.href === Astro.url.pathname && "decoration-current"]} href={link.href}>
             {link.label}
           </a>
         ))

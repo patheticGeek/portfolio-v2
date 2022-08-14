@@ -66,6 +66,28 @@
     content: "=>";
     @apply before-style;
   }
+
+  code {
+    @apply mx-0.5 font-normal;
+  }
+  code::before,
+  code::after {
+    content: "`";
+  }
+  pre {
+    @apply text-sm py-2 px-3 rounded;
+  }
+  pre code::before,
+  pre code::after {
+    content: "";
+  }
+
+  blockquote {
+    @apply border-l-2 border-slate-600 pl-4 py-1;
+  }
+  blockquote p {
+    @apply my-0;
+  }
 }
 
 @layer utilities {

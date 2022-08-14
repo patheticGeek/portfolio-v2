@@ -5,7 +5,7 @@ import Footer from "../components/Footer.astro";
 
 const title = "Geek's Blogs";
 const desc =
-  "Every sentence is just a remix of the dictionary, and here are my remixes";
+  "Every sentence is just a remix of the dictionary, and here are my remixes.";
 
 const posts = (await Astro.glob("./blog/*.{md,mdx}")).sort(
   (a, b) =>
@@ -22,30 +22,39 @@ const posts = (await Astro.glob("./blog/*.{md,mdx}")).sort(
   <body>
     <Header />
     <main>
+      <h1>{title}</h1>
+
+      <p>{desc}</p>
+
       <content>
-        <ul>
+        <ul class="my-4 space-y-4">
           {
-            posts.map((post) => (
-              <li class="flex items-start">
-                <a class="flex-1" href={post.url}>
-                  {post.frontmatter.title}
-                </a>
-                <time datetime={post.frontmatter.pubDate}>
-                  {new Date(post.frontmatter.pubDate).toLocaleDateString(
-                    "en-us",
-                    {
-                      year: "numeric",
-                      month: "short",
-                      day: "numeric",
-                    }
-                  )}
-                </time>
-              </li>
-            ))
+            posts.map((post) => {
+              const words = post.frontmatter.description.split(' ')
+              const ellipsis = words.length > 16 ? '...' : ''
+              const desc = words.slice(0, 16).join(' ') + ellipsis
+              return (
+                <li>
+                  <a class="block w-full" href={post.url}>
+                    {post.frontmatter.title}
+                  </a>
+                  <time class="text-xs" datetime={post.frontmatter.pubDate}>
+                    {new Date(post.frontmatter.pubDate).toLocaleDateString(
+                      "en-us",
+                      {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      }
+                    )}
+                  </time>
+                  <p class="my-0">{desc}</p>
+                </li>
+              )
+            })
           }
         </ul>
       </content>
-      <Footer />
     </main>
   </body>
 </html>
