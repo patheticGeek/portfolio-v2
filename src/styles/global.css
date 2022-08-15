@@ -83,7 +83,7 @@
     content: "`";
   }
   pre {
-    @apply text-sm py-2 px-3 rounded;
+    @apply text-sm py-2 px-3 rounded whitespace-pre-wrap;
   }
   pre code::before,
   pre code::after {
