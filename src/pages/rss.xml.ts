@@ -5,7 +5,7 @@ export const get = async () => {
     title: `Geek's blog`,
     description: `Every sentence is just a remix of the dictionary, and here are my remixes`,
     site: import.meta.env.SITE,
-    items: import.meta.glob("./blog/*.md"),
+    items: import.meta.glob("./blog/*.mdx"),
     customData: `<language>en-us</language>`,
     stylesheet: "/rss/styles.xsl",
   });
