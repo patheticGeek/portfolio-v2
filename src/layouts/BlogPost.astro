@@ -35,25 +35,15 @@ const heroImageAsset = assets.find((asset) => {
 
 <html>
   <head>
-    <BaseHead title={title} description={description} image={heroImageAsset.default} />
+    <BaseHead title={`${title} - Geek's blog`} description={description} image={heroImageAsset?.default || undefined} />
   </head>
 
   <body>
     <Header />
-    {
-      heroImageAsset && (
-        <Image
-          height={360}
-          src={heroImageAsset.default}
-          alt={title}
-          class="object-cover object-center w-full h-[60vh]"
-        />
-      )
-    }
-    <main class="max-w-full my-0">
+    <main class="max-w-full my-0 p-0">
       <article>
         <div class="w-full max-w-3xl mx-auto space-y-3 mt-4">
-          <div class="space-y-1">
+          <div class="space-y-1 pl-10 pr-4">
             <h1 class="text-2xl mb-3">{title}</h1>
             <div class="text-sm">
               <time>{pubDate}</time>
@@ -67,10 +57,23 @@ const heroImageAsset = assets.find((asset) => {
             }
             <p>{description}</p>
           </div>
-          <div>
-            <hr class="border-zinc-700 my-5" />
+          <div class="py-5">
+            {
+              heroImageAsset ? (
+                <Image
+                  height={360}
+                  src={heroImageAsset.default}
+                  alt={title}
+                  class="object-contain object-center w-full max-h-[60vh]"
+                />
+              ) : (
+                <hr class="border-zinc-700" />
+              )
+            }
           </div>
-          <slot />
+          <div class="pl-10 pr-4">
+            <slot />
+          </div>
         </div>
       </article>
     </main>

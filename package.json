@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@astrojs/rss": "^1.0.0",
-    "@octokit/rest": "^19.0.3"
+    "@octokit/rest": "^19.0.3",
+    "rehype-autolink-headings": "^6.1.1"
   }
 }
