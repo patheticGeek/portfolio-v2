@@ -1,7 +1,7 @@
 ---
 layout: "../../layouts/BlogPost.astro"
 title: "React hooks on steroids"
-description: "#react, #hooks, #weed, #state"
+description: ""
 pubDate: "Jul 17 2021"
 heroImage: "/assets/blog/react-state-mgmt-on-crack.png"
 ---

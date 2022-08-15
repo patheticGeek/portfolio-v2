@@ -1,7 +1,7 @@
 ---
 layout: "../../layouts/BlogPost.astro"
 title: "React state management on crack"
-description: "#react, #state, #crack, #context"
+description: ""
 pubDate: "Jul 18 2021"
 heroImage: "/assets/blog/react-state-mgmt-on-crack.png"
 ---

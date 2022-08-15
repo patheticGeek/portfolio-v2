@@ -1,0 +1,358 @@
+---
+layout: "../../layouts/BlogPost.astro"
+title: "Redux — React state management techniques"
+description: ""
+pubDate: "Jul 31 2021"
+heroImage: "/assets/blog/react-state-management-techniques.png"
+---
+
+## Redux
+
+Now, hearing the word `redux` may or may not scare you, or it may give you some flashbacks and PTSD starts coming in. But if you do it right, none of that's going to happen to you.
+This is _the_ library I always reach out to anytime I want to add state management to any website.
+
+Also, using this might seem like a lot of work in a small project or like in an example, but it really shines when you're on a medium-sized project and have a big state to manage. If you have a small project, I'd recommend you to use React context, you can see the previous article to learn about it.
+
+## Terminologies of redux
+
+🧙‍♂️ **Action:**
+An action is an object having a type property for what type of action should happen and a payload for sending extra data about that action. The payload can be present or cannot be, it depends on if the reducer needs any extra data to process this action. This action is what we _dispatch_ and is sent to the reducer to process state change. Some action objects/functions are,
+
+```jsx
+// A simple object with type as it doesn't need any payload
+const logout = { type: "LOGOUT" };
+// We call this function with the user object and
+// it returns an action with user object as payload
+// and we can dispatch this to the store
+const login = (user) => ({ type: "LOGIN", payload: user });
+```
+
+📨 **Dispatch:**
+Dispatching means sending an action to the store to be processed. We pass our action to a dispatch function, and it goes to the reducer to be so that reducer modifies the state accordingly.
+
+```jsx
+// We create our store using redux's create store function
+// it needs a root reducer which will be shown later how to do
+const store = createStore(...)
+// here we have a dispatch property we can call with action
+store.dispatch({ type: 'LOGOUT' })
+```
+
+🚜 **Reducer:**
+A reducer is a pure function that takes in the current state, modifies it based on the action, and then returns the modified state. Being a pure function means it only modifies the state and does not trigger anything else like DOM manipulations or anything. The main reducer of our store has a special name and is often referred to as the `rootReducer`.
+An example of user reducer we have seen in the last post, for others here's a basic reducer,
+
+```jsx
+// Our starting state
+const initialState = { isLoggedIn: false, user: null };
+
+// The first time reducer is called is to make
+// the state as the state is undefined in starting
+// so we give it a default value
+const reducer = (state = initialState, action) => {
+  // we perform actions based on the type
+  switch (action.type) {
+    case "LOGOUT":
+      // we return a new state to be set
+      return { isLoggedIn: false, user: null };
+    case "LOGIN":
+      // when we create the login action we also pass in
+      // the user as payload so that we can set it here
+      return { isLoggedIn: true, user: action.payload };
+    default:
+      // If any other action was done
+      // we don't need to change our state
+      return state;
+  }
+};
+```
+
+🏬 **Store:**
+Store is what stores all of our state. It has a function `getState` to get its state and a function `dispatch` to send updates. We can have multiple reducers working in our state, so if we have posts we can have a post reducer to so all posts actions, if we have login we can have a login reducer for it etc. How we create a state is,
+
+```jsx
+import { createStore, combineReducers } from "redux";
+// Dummy reducers for example which return existing
+// state on any action
+const loginReducer = (state = { user: null }, action) => state;
+const postReducer = (state = { posts: {} }, action) => state;
+
+// How we set reducers in this object will be the shape of our state
+// So here we will have a state that looks like
+// { login: { user: null }, posts: {} }
+const rootReducer = combineReducers({
+  login: loginReducer,
+  post: postReducer,
+});
+
+// here we create our store using the rootReducer
+const store = createStore(rootReducer);
+// we can also create store with just one reducer as follows
+// const store = createStore(loginReducer)
+// and our state will look like
+// { user: null }
+
+// How to get our current state
+const state = store.getState();
+// How to dispatch actions to change state
+store.disapatch({ type: "LOGOUT" });
+```
+
+## Getting started with it in react
+
+So redux is something that was made for use in vanilla JavaScript. So there is the `react-redux` package that will provide you with what you need for react stuff.
+
+So react specific things are,
+
+### Provider component
+
+The `Provider` component will be wrapping our `<App />` component, and we pass in our store to it, so our store becomes accessible to every component. We do this in `src/index.js` file.
+
+```jsx
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+
+import App from "./App";
+// Assuming we have our store created in redux/store.js file
+import store from "./redux/store";
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  rootElement
+);
+```
+
+### useSelector and useDispatch hooks
+
+How we get state in our React app is using the `useSelector` hook, and to dispatch actions we use the `useDispatch` hook.
+
+```jsx
+function ExamplePage() {
+  // useSelector hook takes in a function and that is
+  // where we say what part of state we want.
+  const loginState = useSelector((state) => state.login);
+  // We get a state param in the function which is the state
+  // of the app and we return the part we care about
+  const postState = useSelector((state) => state.post);
+
+  // This hook gives us the store.dispatch dispatch function
+  const dispatch = useDispatch();
+
+  // So here we call the dispatch function with our action
+  const logout = () => dispatch({ type: "LOGOUT" });
+
+  return null;
+}
+```
+
+## How the data flows
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f4c17e37-815b-4758-a2cc-ff2dabfba485/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f4c17e37-815b-4758-a2cc-ff2dabfba485/Untitled.png)
+
+And this is basically all you need to know!
+
+## Creating a full redux store
+
+Now that you know all this cool stuff, creating the store is pretty straightforward. We will now create a simple login state here.
+
+Here is the list of things we need to do:
+
+- [ ] Create a login reducer in and root reducer
+- [ ] Create the store with root reducer
+- [ ] Wrap our App in the Provider component
+- [ ] Create some actions
+- [ ] Finally, use the useSelector and useDispatch hooks 🎉
+
+The folder structure we will be making will be something like following,
+
+```bash
+learning-redux (project folder)
+└── src
+    ├── App.js
+    ├── index.js
+    └── redux
+        ├── actions
+        │   └── login.js
+        ├── reducers
+        │   ├── loginReducer.js
+        │   └── index.js
+        └── store.js
+```
+
+So let's start with our login reducer,
+
+```jsx
+// src/redux/reducers/loginReducer.js
+const initialState = { isLoggedIn: false, user: null };
+
+const loginReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case "LOGIN":
+      // When user is logged in we set the user data and logged in to true
+      // The user data comes from the action payload
+      return { isLoggedIn: true, user: action.payload };
+    case "LOGOUT":
+      // when user signs out we need to clear the state
+      return { isLoggedIn: false, user: null };
+    case "UPDATE_USER":
+      // we create a new state that we will modify and return
+      const newState = { ...state };
+      // when a user is updated we get the new user in payload
+      // so we merge the user in state and the payload
+      newState.user = { ...state.newState, ...action.payload };
+      // and now we return the state
+      return newState;
+    default:
+      // by default we just return the state unchanged
+      return state;
+  }
+};
+
+// and we export this by default
+export default loginReducer;
+```
+
+Now let's create our root reducer that uses this login reducer,
+
+```jsx
+// src/redux/reducers/index.js
+import { combineReducers } from "redux";
+import loginReducer from "./loginReducer";
+
+// this will create our state and the state will have shape like this object
+// So here our state will be like
+// state: { login, { isLoggedIn: false, user: null } }
+const rootReducer = combineReducers({
+  login: loginReducer,
+});
+
+// and we export this by default
+export default rootReducer;
+```
+
+Moving on to creating the store,
+
+```jsx
+// src/redux/store.js
+import { createStore } from "redux";
+import rootReducer from "./reducers";
+
+// we use the createStore function from redux
+// and pass in our root reducer
+const store = createStore(rootReducer);
+
+// we export this too by default
+export default store;
+```
+
+Time to wrap our App inside redux provider,
+
+```jsx
+// src/index.js
+import { StrictMode } from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+
+import App from "./App";
+import store from "./redux/store";
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(
+  <StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </StrictMode>,
+  rootElement
+);
+```
+
+Time to create some action (not the South Indian movie kind),
+
+```jsx
+// src/redux/actions/login.js
+
+// when user signs in we will dispatch the action returned
+// by this function, we will need to pass this our user object
+export const login = (user) => ({ type: "LOGIN", payload: user });
+
+// we can call this function without passing anything
+// and dispatch the returned action to sign out the user
+export const logout = () => ({ type: "LOGOUT" });
+
+// we export these both as named exports
+```
+
+Finally, after all the hard work we've done. Let's use all this in our App file,
+
+```jsx
+// src/App.js
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "./redux/actions/login";
+
+export default function App() {
+  // Use the component state for getting user's name input
+  const [username, setUsername] = useState("");
+
+  // Getting the login state by using the useSelector hook
+  const loginState = useSelector((state) => state.login);
+  // Getting the store's dispatch function to dispatch actions
+  const dispatch = useDispatch();
+
+  return (
+    <div className="App">
+      {/* When user is logged in we show their username */}
+      {loginState.isLoggedIn ? (
+        <p>
+          {/* When user is logged in we will have the user object with username in it */}
+          You are: {loginState.user.username}
+        </p>
+      ) : (
+        <>
+          {/* When user is not logged in we show them the form */}
+          <input
+            placeholder="Who are you?"
+            value={username}
+            onChange={(e) => {
+              setUsername(e.target.value);
+            }}
+          />
+          <button
+            onClick={() => {
+              // To get the login action we pass in the user object
+              // For now the user object just has username
+              const loginAction = login({ username });
+              // And now we dispatch our action
+              dispatch(loginAction);
+            }}
+          >
+            Let me In!!!
+          </button>
+        </>
+      )}
+    </div>
+  );
+}
+```
+
+And this is how we use redux to manage our app state.
+
+Here's a code sandbox, so you can try yourself:
+
+import CodeSandbox from "src/components/CodeSandbox.astro";
+
+<CodeSandbox id="react-redux-boilerplate-cn6pz" view="editor" />
+
+## Final notes
+
+Redux comes with a lot of boilerplate for it to make even the slightest of sense for a small project. So choose it wisely. Now, if you just want a few things like a login state a theme state you are better off using react context than dealing with this. And for anything which needs more than that you should be using redux because it provides such a nice way to manage the global state even if you have hundreds of components.
+
+**Next Steps**
+
+Try taking a look at the redux toolkit. It makes all this boilerplate go away, and you just need to create the reducer and store it, everything else is done like magic. But only dive into that if you understand how traditional redux works.
+
+If I missed anything or if something isn't clear, please comment, and I'll try to either answer myself or give you someplace where you can read about it in more detail. This will also help anyone else who didn't understand it. Thanks :)

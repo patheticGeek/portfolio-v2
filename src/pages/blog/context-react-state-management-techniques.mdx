@@ -1,0 +1,197 @@
+---
+layout: "../../layouts/BlogPost.astro"
+title: "Context — React state management techniques"
+description: ""
+pubDate: "Jul 30 2021"
+heroImage: "/assets/blog/react-state-management-techniques.png"
+---
+
+## React Context
+
+It's fun games till now, we can store the state in our component and then update it and pass it down to a few components. But what if more components need access to it? That's where it gets complicated, like my non-existent relationship.
+
+## The most basic form
+
+What react context does is it gives you a Provider component, and its value can be access by any component inside it, no matter how deep it is. Note that it does not have a way to update its value, so we need to do that for it. For that, we can use `useState` and pass in an update function as the value of context so when that state gets updated the context's value gets updated.
+
+Now let's see how we can move our user state to context,
+
+```jsx
+const INITIAL_STATE = {
+	username: 'pathetic_geek',
+	avatar: 'https://www.secretrickroll.com/assets/opt2.jpg',
+	// ...other stuff
+}
+// Our context's value will be an array with first item as state
+// and second as a function to set the state which we will add later
+const UserContext = React.createContext([INITIAL_STATE, () => {}])
+
+// Our App component in index.js will be
+// wrapped inside this like,
+// <UserProvider>   <App />   </UserContext>
+export const UserProvider = ({ children }) => {
+	const [user, setUser] = useState(INITIAL_STATE)
+
+	// Update function from before in useCallback
+	// this function remains same on each render and
+	// doesn't trigger re-renders everytime.
+  // This is a fancy way of saying it is optimized
+	const updateUser = React.useCallback((newValue) => {
+		// Pass a function to merge old value and new value
+		setUser(val => { ...val, ...newValue })
+	}, [])
+
+	// We memoize the value so that it is only updated
+	// when user updates and doesn't trigger re-renders
+	const value = React.useMemo(() => [user, updateUser], [user])
+
+	// we pass in the value of context as a prop to provider
+	// and all it's children will have access to that value
+	return (
+		<UserContext.Provider value={value}>
+			{children}
+		</UserContext.Provider>
+	)
+}
+
+// This hook will provide you the
+// value of user and can be used like
+// const [user, updateUser] = useUser()
+// and to update the user we just do
+// updateUser({ username: 'noobslayer69' })
+export const useUser = () => {
+	return React.useContext(UserContext)
+}
+
+// and we export default our context
+export default UserContext
+```
+
+This is what a basic context state looks like. But it is very primitive, like it's a `useState` object. So we can instead add a `useReducer` here to give us a better predictive state.
+
+## The `useReducer` hook
+
+🏭 **Reducer:**
+A reducer function is something that takes in the old state and an action. Then it modifies the state based on the action provided. So this way our state will always be modified predictably.
+👨‍🏭 **Action:**
+The most common form to pass actions is an object which has a type and a payload. We check the action type and then modify the state based on it. We can also pass in a payload that can be used to pass data to our reducer like the new input value, so we can set it inside the reducer.
+
+Let's see a basic `useReducer` usage,
+
+```jsx
+const initialState = 0;
+
+// Our reducer gets the state and the action we pass
+// in dispatch and returns the new state after modfying it
+// It is first called when setting up the state so we set
+// a default state for when the state is not there or is null
+// Whatever this returns will become the new state
+function reducer(state = initialState, action) {
+  // The action will be an object like { type: 'INC' }
+  // So we modify the state based on the action type
+  switch (action.type) {
+    case "INC":
+      // When action type is INC we add increment the state
+      return state + 1;
+    case "SET":
+      // When action type is SET we also pass in payload
+      // which is the value we want to set state to.
+      // So we just return that
+      return action.payload;
+    default:
+      // When the state is first being created
+      // or when the action type is wrong
+      return state;
+  }
+}
+
+function Example() {
+  // We pass the useReducer our reducer and initial state
+  const [counter, dispatch] = React.useReducer(reducer, initialState);
+
+  // We can call this function to dispatch the increment action
+  const incrementValue = () => dispatch({ type: "INC" });
+  // We call this to set the value of state and pass in payload
+  // to let reducer know what value we want to set it to
+  const setValue = () => dispatch({ type: "SET", payload: 7 });
+
+  return null;
+}
+```
+
+## Combining forces (with reducer)
+
+So now that we know how to use `useReducer` and context, let's combine them both,
+
+```jsx
+const initialState = {
+  username: "pathetic_geek",
+  avatar: "https://www.secretrickroll.com/assets/opt2.jpg",
+};
+// Same as before we create context wih initial value
+// as an array where first item is the state and second
+// is a function to update the state which we will add later
+const UserContext = React.createContext([initialState, () => {}]);
+
+function reducer(state = initialState, action) {
+  switch (action.type) {
+    case "UPDATE_USERNAME":
+      // We create a new object and add properties of
+      // state in it then override the username property
+      return { ...state, username: action.payload };
+    case "UPDATE_AVATAR":
+      // This time we override the avatar key
+      return { ...state, avatar: action.payload };
+    default:
+      return state;
+  }
+}
+
+// Same provider from before but with useReducer
+export const UserProvider = ({ children }) => {
+  const [user, dispatch] = useReducer(reducer, initialState);
+
+  const value = React.useMemo(() => [user, dispatch], [user]);
+
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
+};
+
+// Same useUser hook from before
+export const useUser = () => {
+  return React.useContext(UserContext);
+};
+
+function Example() {
+  // We get the value of context here
+  // which is an array with user and dispatch
+  const [user, dispatch] = useUser();
+
+  // we can call this function to dispatch the username change
+  // this can be called like `updateUsername('noobslayer69')`
+  const updateUsername = (username) => {
+    // we pass the action type and new value as payload
+    dispatch({ type: "UPDATE_USERNAME", payload: username });
+  };
+  // we call this function to dispatch the username change
+  const updatAvatar = (avatar) => {
+    dispatch({ type: "UPDATE_AVATAR", payload: avatar });
+  };
+
+  return null;
+}
+```
+
+And this is how we manage our state using context and reducer. Here's a code sandbox, so you can see this in action,
+
+import CodeSandbox from "src/components/CodeSandbox.astro";
+
+<CodeSandbox id="react-context-boilerplate-fzv7d" view="editor" />
+
+## Final notes
+
+This is great for getting a global store quickly. Let's say you want to store the user's preferred theme or current user's data or some theme data like font size spacing etc.
+One caveat of this is that it re-renders all the children of it, even ones that are not dependent on its value, so it can slow down things quite a bit if you have a big application. And also, context is meant for its value to be read very often and updated very less, so you shouldn't use it for high-frequency updates.
+
+To mitigate all of these problems, there is redux. And traditionally, redux doesn't have a good reputation because of all the boilerplate that comes with it, but I think even with that initial setup that takes a bit to do, redux can be very useful and efficient.
+
+So in the next part, we will be looking at how we can manage our state with this shiny new thing called the redux toolkit.
