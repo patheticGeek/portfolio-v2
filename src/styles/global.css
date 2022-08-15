@@ -7,7 +7,7 @@
   }
 
   main {
-    @apply w-full max-w-3xl mx-auto my-5 pl-9 pr-4;
+    @apply w-full max-w-3xl mx-auto my-5 pl-10 pr-4;
   }
 
   a {
@@ -56,14 +56,21 @@
     @apply my-2;
   }
 
-  ul {
-    @apply my-1;
-  }
-  ul > li {
+  li {
     @apply relative my-0.5;
+  }
+  ul,
+  ol {
+    @apply my-1;
   }
   ul > li::before {
     content: "=>";
+    @apply before-style;
+  }
+  ol {
+    list-style-type: decimal;
+  }
+  ol > li::marker {
     @apply before-style;
   }
 
