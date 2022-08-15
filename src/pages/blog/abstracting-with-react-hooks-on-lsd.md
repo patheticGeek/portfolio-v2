@@ -1,7 +1,7 @@
 ---
 layout: "../../layouts/BlogPost.astro"
 title: "Abstracting with react hooks on LSD"
-description: "#react, #bushinessLogic, #lsd, #hooks"
+description: "#react, #businessLogic, #lsd, #hooks"
 pubDate: "Jul 19 2021"
 heroImage: "/assets/blog/abstracting-with-react-hooks-on-lsd.png"
 ---
