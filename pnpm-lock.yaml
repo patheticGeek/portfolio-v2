@@ -1,7 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@astrojs/image': ^0.13.1
+  '@astrojs/image': ^0.14.0
   '@astrojs/mdx': ^0.15.2
   '@astrojs/react': ^2.0.2
   '@astrojs/rss': ^2.1.0
@@ -26,7 +26,7 @@ dependencies:
   tailwindcss: 3.2.4
 
 devDependencies:
-  '@astrojs/image': 0.13.1_astro@2.0.4
+  '@astrojs/image': 0.14.0_astro@2.0.4
   '@astrojs/mdx': 0.15.2_astro@2.0.4
   '@astrojs/sitemap': 1.0.1
   '@astrojs/tailwind': 3.0.1_w4tcfhwvdtjypoawtn32k4prgu
@@ -67,10 +67,10 @@ packages:
     resolution: {integrity: sha512-77aacobLKcL98NmhK3OBS5EHIrX9gs1ckB/vGSIdkVZuB7u51V4jh05I6W0tSvG7/86tALv6QtHTRZ8rLhFTbQ==}
     dev: true
 
-  /@astrojs/image/0.13.1_astro@2.0.4:
-    resolution: {integrity: sha512-H+3I0i8KU+oTc3HsVncE8VGEQkEJEXXi79EnK7nRBf6WS8pWAjVaGBKXkk7jZQv8rM/Qc+Bnvl+lGLQCF1ziOA==}
+  /@astrojs/image/0.14.0_astro@2.0.4:
+    resolution: {integrity: sha512-prrBz2jZ8bsHm9uNlgeuf+jxQ4jHUD08h7+GXQv1DGfbYQuXQaupJlAg2/hJHmzE5lEvDCL0OYKTXAJ03Gorpw==}
     peerDependencies:
-      astro: ^2.0.4
+      astro: ^2.0.5
       sharp: '>=0.31.0'
     peerDependenciesMeta:
       sharp:
@@ -83,7 +83,6 @@ packages:
       kleur: 4.1.5
       magic-string: 0.27.0
       mime: 3.0.0
-      slash: 4.0.0
     dev: true
 
   /@astrojs/language-server/0.28.3:
