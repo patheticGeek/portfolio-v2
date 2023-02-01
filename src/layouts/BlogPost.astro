@@ -31,6 +31,8 @@ const heroImageAsset = assets.find((asset) => {
   const index = asset.default.src.indexOf("/assets/");
   return asset.default.src.slice(index) === heroImage;
 });
+
+console.log({assets,heroImageAsset})
 ---
 
 <html>
