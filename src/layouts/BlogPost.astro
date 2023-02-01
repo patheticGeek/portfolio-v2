@@ -2,7 +2,6 @@
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import { Image } from "@astrojs/image/components";
 
 export interface Props {
   content: {
@@ -18,26 +17,13 @@ const {
   content: { title, description, pubDate, updatedDate, heroImage },
 } = Astro.props as Props;
 
-// Match the `heroImage` frontmatter string to its correct
-// Astro.glob() import of the file in the src/ directory.
-const assets = await Astro.glob("../assets/**/*");
-const heroImageAsset = assets.find((asset) => {
-  if (!heroImage) {
-    return false;
-  }
-  if (!asset.default?.src) {
-    return false;
-  }
-  const index = asset.default.src.indexOf("/assets/");
-  return asset.default.src.slice(index) === heroImage;
-});
+const imgUrl = new URL(heroImage, Astro.url).toString()
 
-console.log({assets,heroImageAsset})
 ---
 
 <html>
   <head>
-    <BaseHead title={`${title} - Geek's blog`} description={description} banner={heroImageAsset?.default || undefined} />
+    <BaseHead title={`${title} - Geek's blog`} description={description} banner={imgUrl || undefined} />
   </head>
 
   <body>
@@ -61,10 +47,10 @@ console.log({assets,heroImageAsset})
           </div>
           <div class="py-5">
             {
-              heroImageAsset ? (
-                <Image
+              heroImage ? (
+                <img
                   height={360}
-                  src={heroImageAsset.default}
+                  src={heroImage}
                   alt={title}
                   class="object-contain object-center w-full max-h-[60vh]"
                 />
