@@ -4,10 +4,10 @@ export const GITHUB_USERNAME = "patheticGeek";
 export const GITHUB_TOPIC = "in-portfolio";
 
 export const HOME_LINKS = [
-  { label: "📨 Email", href: "mailto:geekpathetic@gmail.com" },
+  { label: "📨 Email", href: "mailto:shivamnagi14@gmail.com" },
   { label: "🧑‍💻 Github", href: "https://github.com/patheticGeek" },
   { label: "🐦 Twitter", href: "https://twitter.com/pathetic_geek" },
-  { label: "💼 LinkedIn", href: "https://www.linkedin.com/in/pathetic-geek" },
+  { label: "💼 LinkedIn", href: "https://www.linkedin.com/in/shivam-n" },
   {
     label: "👻 Snapchat",
     href: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
