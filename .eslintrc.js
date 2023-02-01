@@ -4,6 +4,10 @@ module.exports = {
     // ...
     "plugin:astro/recommended",
   ],
+  parserOptions: {
+    sourceType: "module",
+    ecmaVersion: 2020,
+  },
   // ...
   overrides: [
     {
