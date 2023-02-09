@@ -3,6 +3,8 @@ import mdx from "@astrojs/mdx";
 import tailwind from "@astrojs/tailwind";
 import vercel from "@astrojs/vercel/serverless";
 
+import react from "@astrojs/react";
+
 // https://astro.build/config
 export default defineConfig({
   output: "server",
@@ -14,6 +16,7 @@ export default defineConfig({
         applyBaseStyles: false,
       },
     }),
+    react(),
   ],
   site: "https://patheticgeek.dev/",
 });

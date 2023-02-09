@@ -1,0 +1,36 @@
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Bookmarks {
+  id        String   @id
+  createdAt DateTime
+  name      String   @db.Text
+  url       String   @db.LongText
+
+  folder   Folders? @relation(fields: [folderId], references: [id])
+  folderId String?
+
+  @@index([folderId])
+}
+
+model Folders {
+  id    String @id
+  name  String @db.Text
+  level Int
+
+  bookmarks Bookmarks[]
+
+  children Folders[] @relation("children")
+
+  parent   Folders? @relation("children", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  parentId String?
+
+  @@index([parentId])
+}

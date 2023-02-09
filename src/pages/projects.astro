@@ -3,6 +3,9 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import { getProjects } from "src/lib/github";
 import { GITHUB_USERNAME } from "src/config";
+import { setCache } from "src/lib/cache";
+
+setCache(Astro.response, 12 * 60 * 60)
 
 const title = "Geek's Projects";
 const desc = "Here are some of the things I've somehow made work.";
