@@ -1,3 +1,4 @@
+/** @type {import("prettier").Config} */
 module.exports = {
   ...require('prettier-config-standard'),
   tailwindConfig: './tailwind.config.cjs',
