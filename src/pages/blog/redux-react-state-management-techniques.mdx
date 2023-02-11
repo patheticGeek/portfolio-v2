@@ -1,9 +1,9 @@
 ---
-layout: "../../layouts/BlogPost.astro"
-title: "Redux — React state management techniques"
-description: ""
-pubDate: "Jul 31 2021"
-heroImage: "/assets/blog/react-state-management-techniques.png"
+layout: '../../layouts/BlogPost.astro'
+title: 'Redux — React state management techniques'
+description: ''
+pubDate: 'Jul 31 2021'
+heroImage: '/assets/blog/react-state-management-techniques.png'
 ---
 
 ## Redux
@@ -20,11 +20,11 @@ An action is an object having a type property for what type of action should hap
 
 ```jsx
 // A simple object with type as it doesn't need any payload
-const logout = { type: "LOGOUT" };
+const logout = { type: 'LOGOUT' }
 // We call this function with the user object and
 // it returns an action with user object as payload
 // and we can dispatch this to the store
-const login = (user) => ({ type: "LOGIN", payload: user });
+const login = (user) => ({ type: 'LOGIN', payload: user })
 ```
 
 📨 **Dispatch:**
@@ -44,7 +44,7 @@ An example of user reducer we have seen in the last post, for others here's a ba
 
 ```jsx
 // Our starting state
-const initialState = { isLoggedIn: false, user: null };
+const initialState = { isLoggedIn: false, user: null }
 
 // The first time reducer is called is to make
 // the state as the state is undefined in starting
@@ -52,50 +52,50 @@ const initialState = { isLoggedIn: false, user: null };
 const reducer = (state = initialState, action) => {
   // we perform actions based on the type
   switch (action.type) {
-    case "LOGOUT":
+    case 'LOGOUT':
       // we return a new state to be set
-      return { isLoggedIn: false, user: null };
-    case "LOGIN":
+      return { isLoggedIn: false, user: null }
+    case 'LOGIN':
       // when we create the login action we also pass in
       // the user as payload so that we can set it here
-      return { isLoggedIn: true, user: action.payload };
+      return { isLoggedIn: true, user: action.payload }
     default:
       // If any other action was done
       // we don't need to change our state
-      return state;
+      return state
   }
-};
+}
 ```
 
 🏬 **Store:**
 Store is what stores all of our state. It has a function `getState` to get its state and a function `dispatch` to send updates. We can have multiple reducers working in our state, so if we have posts we can have a post reducer to so all posts actions, if we have login we can have a login reducer for it etc. How we create a state is,
 
 ```jsx
-import { createStore, combineReducers } from "redux";
+import { createStore, combineReducers } from 'redux'
 // Dummy reducers for example which return existing
 // state on any action
-const loginReducer = (state = { user: null }, action) => state;
-const postReducer = (state = { posts: {} }, action) => state;
+const loginReducer = (state = { user: null }, action) => state
+const postReducer = (state = { posts: {} }, action) => state
 
 // How we set reducers in this object will be the shape of our state
 // So here we will have a state that looks like
 // { login: { user: null }, posts: {} }
 const rootReducer = combineReducers({
   login: loginReducer,
-  post: postReducer,
-});
+  post: postReducer
+})
 
 // here we create our store using the rootReducer
-const store = createStore(rootReducer);
+const store = createStore(rootReducer)
 // we can also create store with just one reducer as follows
 // const store = createStore(loginReducer)
 // and our state will look like
 // { user: null }
 
 // How to get our current state
-const state = store.getState();
+const state = store.getState()
 // How to dispatch actions to change state
-store.disapatch({ type: "LOGOUT" });
+store.disapatch({ type: 'LOGOUT' })
 ```
 
 ## Getting started with it in react
@@ -109,20 +109,20 @@ So react specific things are,
 The `Provider` component will be wrapping our `<App />` component, and we pass in our store to it, so our store becomes accessible to every component. We do this in `src/index.js` file.
 
 ```jsx
-import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
+import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
 
-import App from "./App";
+import App from './App'
 // Assuming we have our store created in redux/store.js file
-import store from "./redux/store";
+import store from './redux/store'
 
-const rootElement = document.getElementById("root");
+const rootElement = document.getElementById('root')
 ReactDOM.render(
   <Provider store={store}>
     <App />
   </Provider>,
   rootElement
-);
+)
 ```
 
 ### useSelector and useDispatch hooks
@@ -133,18 +133,18 @@ How we get state in our React app is using the `useSelector` hook, and to dispat
 function ExamplePage() {
   // useSelector hook takes in a function and that is
   // where we say what part of state we want.
-  const loginState = useSelector((state) => state.login);
+  const loginState = useSelector((state) => state.login)
   // We get a state param in the function which is the state
   // of the app and we return the part we care about
-  const postState = useSelector((state) => state.post);
+  const postState = useSelector((state) => state.post)
 
   // This hook gives us the store.dispatch dispatch function
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   // So here we call the dispatch function with our action
-  const logout = () => dispatch({ type: "LOGOUT" });
+  const logout = () => dispatch({ type: 'LOGOUT' })
 
-  return null;
+  return null
 }
 ```
 
@@ -186,80 +186,80 @@ So let's start with our login reducer,
 
 ```jsx
 // src/redux/reducers/loginReducer.js
-const initialState = { isLoggedIn: false, user: null };
+const initialState = { isLoggedIn: false, user: null }
 
 const loginReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "LOGIN":
+    case 'LOGIN':
       // When user is logged in we set the user data and logged in to true
       // The user data comes from the action payload
-      return { isLoggedIn: true, user: action.payload };
-    case "LOGOUT":
+      return { isLoggedIn: true, user: action.payload }
+    case 'LOGOUT':
       // when user signs out we need to clear the state
-      return { isLoggedIn: false, user: null };
-    case "UPDATE_USER":
+      return { isLoggedIn: false, user: null }
+    case 'UPDATE_USER':
       // we create a new state that we will modify and return
-      const newState = { ...state };
+      const newState = { ...state }
       // when a user is updated we get the new user in payload
       // so we merge the user in state and the payload
-      newState.user = { ...state.newState, ...action.payload };
+      newState.user = { ...state.newState, ...action.payload }
       // and now we return the state
-      return newState;
+      return newState
     default:
       // by default we just return the state unchanged
-      return state;
+      return state
   }
-};
+}
 
 // and we export this by default
-export default loginReducer;
+export default loginReducer
 ```
 
 Now let's create our root reducer that uses this login reducer,
 
 ```jsx
 // src/redux/reducers/index.js
-import { combineReducers } from "redux";
-import loginReducer from "./loginReducer";
+import { combineReducers } from 'redux'
+import loginReducer from './loginReducer'
 
 // this will create our state and the state will have shape like this object
 // So here our state will be like
 // state: { login, { isLoggedIn: false, user: null } }
 const rootReducer = combineReducers({
-  login: loginReducer,
-});
+  login: loginReducer
+})
 
 // and we export this by default
-export default rootReducer;
+export default rootReducer
 ```
 
 Moving on to creating the store,
 
 ```jsx
 // src/redux/store.js
-import { createStore } from "redux";
-import rootReducer from "./reducers";
+import { createStore } from 'redux'
+import rootReducer from './reducers'
 
 // we use the createStore function from redux
 // and pass in our root reducer
-const store = createStore(rootReducer);
+const store = createStore(rootReducer)
 
 // we export this too by default
-export default store;
+export default store
 ```
 
 Time to wrap our App inside redux provider,
 
 ```jsx
 // src/index.js
-import { StrictMode } from "react";
-import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
+import { StrictMode } from 'react'
+import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
 
-import App from "./App";
-import store from "./redux/store";
+import App from './App'
+import store from './redux/store'
 
-const rootElement = document.getElementById("root");
+const rootElement = document.getElementById('root')
 ReactDOM.render(
   <StrictMode>
     <Provider store={store}>
@@ -267,7 +267,7 @@ ReactDOM.render(
     </Provider>
   </StrictMode>,
   rootElement
-);
+)
 ```
 
 Time to create some action (not the South Indian movie kind),
@@ -277,11 +277,11 @@ Time to create some action (not the South Indian movie kind),
 
 // when user signs in we will dispatch the action returned
 // by this function, we will need to pass this our user object
-export const login = (user) => ({ type: "LOGIN", payload: user });
+export const login = (user) => ({ type: 'LOGIN', payload: user })
 
 // we can call this function without passing anything
 // and dispatch the returned action to sign out the user
-export const logout = () => ({ type: "LOGOUT" });
+export const logout = () => ({ type: 'LOGOUT' })
 
 // we export these both as named exports
 ```
@@ -290,18 +290,18 @@ Finally, after all the hard work we've done. Let's use all this in our App file,
 
 ```jsx
 // src/App.js
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { login } from "./redux/actions/login";
+import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { login } from './redux/actions/login'
 
 export default function App() {
   // Use the component state for getting user's name input
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState('')
 
   // Getting the login state by using the useSelector hook
-  const loginState = useSelector((state) => state.login);
+  const loginState = useSelector((state) => state.login)
   // Getting the store's dispatch function to dispatch actions
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   return (
     <div className="App">
@@ -318,24 +318,23 @@ export default function App() {
             placeholder="Who are you?"
             value={username}
             onChange={(e) => {
-              setUsername(e.target.value);
+              setUsername(e.target.value)
             }}
           />
           <button
             onClick={() => {
               // To get the login action we pass in the user object
               // For now the user object just has username
-              const loginAction = login({ username });
+              const loginAction = login({ username })
               // And now we dispatch our action
-              dispatch(loginAction);
-            }}
-          >
+              dispatch(loginAction)
+            }}>
             Let me In!!!
           </button>
         </>
       )}
     </div>
-  );
+  )
 }
 ```
 
@@ -343,7 +342,7 @@ And this is how we use redux to manage our app state.
 
 Here's a code sandbox, so you can try yourself:
 
-import CodeSandbox from "src/components/CodeSandbox.astro";
+import CodeSandbox from 'src/components/CodeSandbox.astro'
 
 <CodeSandbox id="react-redux-boilerplate-cn6pz" view="editor" />
 

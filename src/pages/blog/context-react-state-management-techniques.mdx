@@ -1,9 +1,9 @@
 ---
-layout: "../../layouts/BlogPost.astro"
-title: "Context — React state management techniques"
-description: ""
-pubDate: "Jul 30 2021"
-heroImage: "/assets/blog/react-state-management-techniques.png"
+layout: '../../layouts/BlogPost.astro'
+title: 'Context — React state management techniques'
+description: ''
+pubDate: 'Jul 30 2021'
+heroImage: '/assets/blog/react-state-management-techniques.png'
 ---
 
 ## React Context
@@ -79,7 +79,7 @@ The most common form to pass actions is an object which has a type and a payload
 Let's see a basic `useReducer` usage,
 
 ```jsx
-const initialState = 0;
+const initialState = 0
 
 // Our reducer gets the state and the action we pass
 // in dispatch and returns the new state after modfying it
@@ -90,32 +90,32 @@ function reducer(state = initialState, action) {
   // The action will be an object like { type: 'INC' }
   // So we modify the state based on the action type
   switch (action.type) {
-    case "INC":
+    case 'INC':
       // When action type is INC we add increment the state
-      return state + 1;
-    case "SET":
+      return state + 1
+    case 'SET':
       // When action type is SET we also pass in payload
       // which is the value we want to set state to.
       // So we just return that
-      return action.payload;
+      return action.payload
     default:
       // When the state is first being created
       // or when the action type is wrong
-      return state;
+      return state
   }
 }
 
 function Example() {
   // We pass the useReducer our reducer and initial state
-  const [counter, dispatch] = React.useReducer(reducer, initialState);
+  const [counter, dispatch] = React.useReducer(reducer, initialState)
 
   // We can call this function to dispatch the increment action
-  const incrementValue = () => dispatch({ type: "INC" });
+  const incrementValue = () => dispatch({ type: 'INC' })
   // We call this to set the value of state and pass in payload
   // to let reducer know what value we want to set it to
-  const setValue = () => dispatch({ type: "SET", payload: 7 });
+  const setValue = () => dispatch({ type: 'SET', payload: 7 })
 
-  return null;
+  return null
 }
 ```
 
@@ -125,65 +125,65 @@ So now that we know how to use `useReducer` and context, let's combine them both
 
 ```jsx
 const initialState = {
-  username: "pathetic_geek",
-  avatar: "https://www.secretrickroll.com/assets/opt2.jpg",
-};
+  username: 'pathetic_geek',
+  avatar: 'https://www.secretrickroll.com/assets/opt2.jpg'
+}
 // Same as before we create context wih initial value
 // as an array where first item is the state and second
 // is a function to update the state which we will add later
-const UserContext = React.createContext([initialState, () => {}]);
+const UserContext = React.createContext([initialState, () => {}])
 
 function reducer(state = initialState, action) {
   switch (action.type) {
-    case "UPDATE_USERNAME":
+    case 'UPDATE_USERNAME':
       // We create a new object and add properties of
       // state in it then override the username property
-      return { ...state, username: action.payload };
-    case "UPDATE_AVATAR":
+      return { ...state, username: action.payload }
+    case 'UPDATE_AVATAR':
       // This time we override the avatar key
-      return { ...state, avatar: action.payload };
+      return { ...state, avatar: action.payload }
     default:
-      return state;
+      return state
   }
 }
 
 // Same provider from before but with useReducer
 export const UserProvider = ({ children }) => {
-  const [user, dispatch] = useReducer(reducer, initialState);
+  const [user, dispatch] = useReducer(reducer, initialState)
 
-  const value = React.useMemo(() => [user, dispatch], [user]);
+  const value = React.useMemo(() => [user, dispatch], [user])
 
-  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
-};
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>
+}
 
 // Same useUser hook from before
 export const useUser = () => {
-  return React.useContext(UserContext);
-};
+  return React.useContext(UserContext)
+}
 
 function Example() {
   // We get the value of context here
   // which is an array with user and dispatch
-  const [user, dispatch] = useUser();
+  const [user, dispatch] = useUser()
 
   // we can call this function to dispatch the username change
   // this can be called like `updateUsername('noobslayer69')`
   const updateUsername = (username) => {
     // we pass the action type and new value as payload
-    dispatch({ type: "UPDATE_USERNAME", payload: username });
-  };
+    dispatch({ type: 'UPDATE_USERNAME', payload: username })
+  }
   // we call this function to dispatch the username change
   const updatAvatar = (avatar) => {
-    dispatch({ type: "UPDATE_AVATAR", payload: avatar });
-  };
+    dispatch({ type: 'UPDATE_AVATAR', payload: avatar })
+  }
 
-  return null;
+  return null
 }
 ```
 
 And this is how we manage our state using context and reducer. Here's a code sandbox, so you can see this in action,
 
-import CodeSandbox from "src/components/CodeSandbox.astro";
+import CodeSandbox from 'src/components/CodeSandbox.astro'
 
 <CodeSandbox id="react-context-boilerplate-fzv7d" view="editor" />
 

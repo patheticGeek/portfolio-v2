@@ -1,9 +1,9 @@
 ---
-layout: "../../layouts/BlogPost.astro"
-title: "Abstracting with react hooks on LSD"
-description: ""
-pubDate: "Jul 19 2021"
-heroImage: "/assets/blog/abstracting-with-react-hooks-on-lsd.png"
+layout: '../../layouts/BlogPost.astro'
+title: 'Abstracting with react hooks on LSD'
+description: ''
+pubDate: 'Jul 19 2021'
+heroImage: '/assets/blog/abstracting-with-react-hooks-on-lsd.png'
 ---
 
 # 3. The final one, `useBusinessLogic` hook
@@ -18,45 +18,45 @@ Let's take an example of a basic to-do app, you'd be having a list of to-dos cal
 
 ```jsx
 const useTodos = () => {
-  const todos = useTodosStore();
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const todos = useTodosStore()
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState(null)
 
   const fetchTodos = useCallback(async () => {
-    setIsLoading(true);
+    setIsLoading(true)
 
     try {
-      const { data: todos } = await axios.get("/api/todos");
-      setTodos(todos);
-      setError(null);
+      const { data: todos } = await axios.get('/api/todos')
+      setTodos(todos)
+      setError(null)
     } catch (e) {
-      setError(e);
+      setError(e)
     }
 
-    setIsLoading(false);
-  });
+    setIsLoading(false)
+  })
 
   useEffect(() => {
-    fetchTodos();
-  }, [fetchTodos]);
+    fetchTodos()
+  }, [fetchTodos])
 
   return {
     todos,
     fetch: fetchTodos,
     isLoading: false,
-    error: null,
-  };
-};
+    error: null
+  }
+}
 ```
 
 If we need to change something, we can just change this small function, and it works everywhere as long as it returns the same object. Now we can just use this with one line of code wherever we want.
 
 ```jsx
 const App = () => {
-  const { todos, isLoading, error } = useTodos();
+  const { todos, isLoading, error } = useTodos()
 
   // other stuff
-};
+}
 ```
 
 ## 3.2 Mutating to-dos
@@ -65,26 +65,26 @@ Now, let's say we want to toggle the state of a to-do. What do we do? We just pu
 
 ```jsx
 const useToggleTodos = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState(null)
 
   const toggleTodo = useCallback(async (todoId) => {
-    setIsLoading(true);
+    setIsLoading(true)
 
     try {
-      const { data } = await axios.get(`/api/todos/${todoId}/toggle`);
-      setError(null);
-      setIsLoading(false);
-      return data;
+      const { data } = await axios.get(`/api/todos/${todoId}/toggle`)
+      setError(null)
+      setIsLoading(false)
+      return data
     } catch (e) {
-      setError(e);
+      setError(e)
     }
 
-    setIsLoading(false);
-  });
+    setIsLoading(false)
+  })
 
-  return [toggleTodo, { isLoading, error }];
-};
+  return [toggleTodo, { isLoading, error }]
+}
 ```
 
 But wait, we also need to update things in our store and oh, what about having multiple useTodos. Do we have a global store or are all instances updated separately? What about race condition? And caching?
@@ -108,13 +108,13 @@ const useTodos() => {
 And in our `useToggleTodo` we can use the [useMutation](https://react-query.tanstack.com/guides/mutations) from `react-query` so that our to-dos query is re-fetched whenever we toggle a to-do
 
 ```jsx
-import { useMutation } from "react-query";
+import { useMutation } from 'react-query'
 
-const getToggleTodoById = (todoId) => axios.get(`/api/todos/${todoId}/toggle`);
+const getToggleTodoById = (todoId) => axios.get(`/api/todos/${todoId}/toggle`)
 
 const useToggleTodo = () => {
-  return useMutation(getToggleTodoById, { refetchQueries: ["todos"] });
-};
+  return useMutation(getToggleTodoById, { refetchQueries: ['todos'] })
+}
 ```
 
 Look how we moved to using vanilla axios to `react-query` in seconds and didn't have to change more than a couple of lines. And now we have these nice hooks for our components to hooks into.

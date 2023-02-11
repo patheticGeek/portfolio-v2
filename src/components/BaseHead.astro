@@ -1,15 +1,14 @@
 ---
-import "../styles/global.css";
+import '../styles/global.css'
 
 export interface Props {
-  title: string;
-  description: string;
-  image?: string;
-  banner?: string;
+  title: string
+  description: string
+  image?: string
+  banner?: string
 }
 
-const { title, description, image = "/favicon.png", banner } = Astro.props;
-
+const { title, description, image = '/favicon.png', banner } = Astro.props
 ---
 
 <!-- Global Metadata -->
@@ -39,7 +38,7 @@ const { title, description, image = "/favicon.png", banner } = Astro.props;
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
 <link
-  href={"https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;500;700&display=swap"}
+  href={'https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;500;700&display=swap'}
   rel="stylesheet"
 />
 

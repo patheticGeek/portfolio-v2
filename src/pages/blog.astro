@@ -1,16 +1,16 @@
 ---
-import BaseHead from "../components/BaseHead.astro";
-import Header from "../components/Header.astro";
+import BaseHead from '../components/BaseHead.astro'
+import Header from '../components/Header.astro'
 
-const title = "Geek's Blogs";
+const title = "Geek's Blogs"
 const desc =
-  "Every sentence is just a remix of the dictionary, and here are my remixes.";
+  'Every sentence is just a remix of the dictionary, and here are my remixes.'
 
-const posts = (await Astro.glob("./blog/*.{md,mdx}")).sort(
+const posts = (await Astro.glob('./blog/*.{md,mdx}')).sort(
   (a, b) =>
     new Date(b.frontmatter.pubDate).valueOf() -
     new Date(a.frontmatter.pubDate).valueOf()
-);
+)
 ---
 
 <!DOCTYPE html>
@@ -39,11 +39,11 @@ const posts = (await Astro.glob("./blog/*.{md,mdx}")).sort(
                   </a>
                   <time class="text-xs" datetime={post.frontmatter.pubDate}>
                     {new Date(post.frontmatter.pubDate).toLocaleDateString(
-                      "en-us",
+                      'en-us',
                       {
-                        year: "numeric",
-                        month: "short",
-                        day: "numeric",
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric'
                       }
                     )}
                   </time>

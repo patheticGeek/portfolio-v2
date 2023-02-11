@@ -1,6 +1,6 @@
-import { APIRoute } from "astro";
-import prisma from "src/lib/prisma";
-import { z } from "zod";
+import { APIRoute } from 'astro'
+import prisma from 'src/lib/prisma'
+import { z } from 'zod'
 
 const BookmarkData = z.object({
   id: z.string(),
@@ -23,8 +23,8 @@ const CreateBookmarkData = z.object({
 })
 
 export const post: APIRoute = async ({ request }) => {
-  const key = (new URLSearchParams(request.url)).get('key')
-  if(key !== process.env.BOOKMARKS_API_KEY) {
+  const key = new URLSearchParams(request.url).get('key')
+  if (key !== process.env.BOOKMARKS_API_KEY) {
     return new Response(undefined, { status: 401 })
   }
 
@@ -32,7 +32,7 @@ export const post: APIRoute = async ({ request }) => {
 
   const result = CreateBookmarkData.safeParse(body)
 
-  if(!result.success) {
+  if (!result.success) {
     return new Response(JSON.stringify(result.error))
   }
 
@@ -40,14 +40,19 @@ export const post: APIRoute = async ({ request }) => {
     data: result.data.folders
   })
   await prisma.bookmarks.createMany({
-    data: result.data.bookmarks.map(val => ({...val, createdAt: new Date(val.createdAt)}))
+    data: result.data.bookmarks.map((val) => ({
+      ...val,
+      createdAt: new Date(val.createdAt)
+    }))
   })
 
   return new Response(JSON.stringify({ success: true }))
 }
 
 export const get: APIRoute = async () => {
-  const bookmarks = await prisma.bookmarks.findMany({include: {folder: true} })
+  const bookmarks = await prisma.bookmarks.findMany({
+    include: { folder: true }
+  })
 
   return new Response(JSON.stringify(bookmarks), { status: 200 })
 }

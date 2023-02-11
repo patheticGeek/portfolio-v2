@@ -1,28 +1,28 @@
 ---
 export interface Props {
-  id: string;
-  hidenavigation?: boolean;
+  id: string
+  hidenavigation?: boolean
   view?: 'editor' | 'preview'
-  fontSize?: number;
+  fontSize?: number
 }
 
-const { id, hidenavigation, view, fontSize = 12 } = Astro.props;
+const { id, hidenavigation, view, fontSize = 12 } = Astro.props
 
 const baseUrl = 'https://codesandbox.io/embed/'
 const params = new URLSearchParams({
   view,
-  hidenavigation: hidenavigation ? "1" : "0",
+  hidenavigation: hidenavigation ? '1' : '0',
   fontsize: fontSize
 })
-const url = `${baseUrl}${id}?${params.toString()}`;
+const url = `${baseUrl}${id}?${params.toString()}`
 ---
 
 <div>
   <iframe
-  src={url}
-  class="border-none rounded h-[500px] w-full overflow-hidden -ml-10 -mr-4 mt-5 mb-7"
-  style="width: calc(100% + 2.5rem + 1rem)"
-  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+    src={url}
+    class="-ml-10 -mr-4 mt-5 mb-7 h-[500px] w-full overflow-hidden rounded border-none"
+    style="width: calc(100% + 2.5rem + 1rem)"
+    allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+    sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   ></iframe>
 </div>

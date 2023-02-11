@@ -1,19 +1,23 @@
 ---
-import { NAV_LINKS, SITE_TITLE } from "../config";
+import { NAV_LINKS, SITE_TITLE } from '../config'
 ---
 
-<header class="px-3 py-3 border-b border-zinc-700 flex items-center md:text-sm">
+<header class="flex items-center border-b border-zinc-700 px-3 py-3 md:text-sm">
   <div
-    class="w-full max-w-3xl mx-auto flex items-center flex-col md:flex-row space-y-2 md:space-y-0"
-  >
-    <a class="md:ml-9 text-white" href="/">
+    class="mx-auto flex w-full max-w-3xl flex-col items-center space-y-2 md:flex-row md:space-y-0">
+    <a class="text-white md:ml-9" href="/">
       {SITE_TITLE}
     </a>
 
     <nav class="flex items-center space-x-2 md:ml-auto">
       {
         NAV_LINKS.map((link) => (
-          <a class:list={["px-1", link.href === Astro.url.pathname && "decoration-current"]} href={link.href}>
+          <a
+            class:list={[
+              'px-1',
+              link.href === Astro.url.pathname && 'decoration-current'
+            ]}
+            href={link.href}>
             {link.label}
           </a>
         ))

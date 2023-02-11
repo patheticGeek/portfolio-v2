@@ -1,38 +1,41 @@
 ---
-import BaseHead from "../components/BaseHead.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
+import BaseHead from '../components/BaseHead.astro'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
 
 export interface Props {
   content: {
-    title: string;
-    description: string;
-    pubDate?: string;
-    updatedDate?: string;
-    heroImage?: string;
-  };
+    title: string
+    description: string
+    pubDate?: string
+    updatedDate?: string
+    heroImage?: string
+  }
 }
 
 const {
-  content: { title, description, pubDate, updatedDate, heroImage },
-} = Astro.props as Props;
+  content: { title, description, pubDate, updatedDate, heroImage }
+} = Astro.props as Props
 
-const imgUrl = new URL(heroImage, Astro.url).toString()
-
+const imgUrl = heroImage ? new URL(heroImage, Astro.url).toString() : undefined
 ---
 
 <html>
   <head>
-    <BaseHead title={`${title} - Geek's blog`} description={description} banner={imgUrl || undefined} />
+    <BaseHead
+      title={`${title} - Geek's blog`}
+      description={description}
+      banner={imgUrl || undefined}
+    />
   </head>
 
   <body>
     <Header />
     <main class="max-w-full p-0">
       <article>
-        <div class="w-full max-w-3xl mx-auto space-y-3">
+        <div class="mx-auto w-full max-w-3xl space-y-3">
           <div class="space-y-1 pl-10 pr-4">
-            <h1 class="text-2xl mb-3">{title}</h1>
+            <h1 class="mb-3 text-2xl">{title}</h1>
             <div class="text-sm">
               <time>{pubDate}</time>
             </div>
@@ -52,7 +55,7 @@ const imgUrl = new URL(heroImage, Astro.url).toString()
                   height={360}
                   src={heroImage}
                   alt={title}
-                  class="object-contain object-center w-full max-h-[60vh]"
+                  class="max-h-[60vh] w-full object-contain object-center"
                 />
               ) : (
                 <hr class="border-zinc-700" />

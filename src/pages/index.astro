@@ -1,7 +1,7 @@
 ---
-import BaseHead from "../components/BaseHead.astro";
-import Header from "../components/Header.astro";
-import { SITE_TITLE, SITE_DESCRIPTION, HOME_LINKS } from "../config";
+import BaseHead from '../components/BaseHead.astro'
+import Header from '../components/Header.astro'
+import { SITE_TITLE, SITE_DESCRIPTION, HOME_LINKS } from '../config'
 ---
 
 <!DOCTYPE html>
@@ -14,15 +14,34 @@ import { SITE_TITLE, SITE_DESCRIPTION, HOME_LINKS } from "../config";
     <main>
       <h1>Hey there 👋</h1>
 
-      <p>People usually call me Geek and I'm a full-stack developer working mainly in frontend with experience building web-based video editor, ed-tech platforms, and more. I have a passion for creating innovative and user-friendly interfaces.</p>
+      <p>
+        People usually call me Geek and I'm a full-stack developer working
+        mainly in frontend with experience building web-based video editor,
+        ed-tech platforms, and more. I have a passion for creating innovative
+        and user-friendly interfaces.
+      </p>
 
-      <p>I am currently looking for full time opportunities. You can checkout my <a href="/resume">resume here</a>.</p>
+      <p>
+        I am currently looking for full time opportunities. You can checkout my <a
+          href="/resume">resume here</a
+        >.
+      </p>
 
-      <p>Checkout some of <a href="/projects">my projects</a>, <a href="/blog">blogs</a> or find something new <a href="/resources">here</a>.</p>
+      <p>
+        Checkout some of <a href="/projects">my projects</a>, <a href="/blog"
+          >blogs</a
+        > or find something new <a href="/resources">here</a>.
+      </p>
 
       <h3>Find me at:</h3>
       <ul>
-        {HOME_LINKS.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
+        {
+          HOME_LINKS.map((link) => (
+            <li>
+              <a href={link.href}>{link.label}</a>
+            </li>
+          ))
+        }
       </ul>
     </main>
   </body>

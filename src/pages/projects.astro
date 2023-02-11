@@ -1,16 +1,16 @@
 ---
-import BaseHead from "../components/BaseHead.astro";
-import Header from "../components/Header.astro";
-import { getProjects } from "src/lib/github";
-import { GITHUB_USERNAME } from "src/config";
-import { setCache } from "src/lib/cache";
+import BaseHead from '../components/BaseHead.astro'
+import Header from '../components/Header.astro'
+import { getProjects } from 'src/lib/github'
+import { GITHUB_USERNAME } from 'src/config'
+import { setCache } from 'src/lib/cache'
 
 setCache(Astro.response, 12 * 60 * 60)
 
-const title = "Geek's Projects";
-const desc = "Here are some of the things I've somehow made work.";
+const title = "Geek's Projects"
+const desc = "Here are some of the things I've somehow made work."
 
-const projects = await getProjects();
+const projects = await getProjects()
 ---
 
 <!DOCTYPE html>
@@ -28,7 +28,7 @@ const projects = await getProjects();
         <br />
         You can also find some smaller experiments on my
         <a href="https://codesandbox.io/u/patheticGeek">CodeSandbox</a>
-        {" and "}
+        {' and '}
         <a href="https://codepen.io/patheticgeek">CodePen</a>.
       </p>
 
@@ -40,14 +40,13 @@ const projects = await getProjects();
                 <a
                   class="block w-full font-medium text-white"
                   href={project.website || project.github_url}
-                  target="_blank"
-                >
+                  target="_blank">
                   {project.name}
                 </a>
               </div>
-              <div class="flex items-center space-x-2 overflow-scroll whitespace-nowrap no-scrollbar">
+              <div class="no-scrollbar flex items-center space-x-2 overflow-scroll whitespace-nowrap">
                 {project.topics.map((topic) => (
-                  <div class="bg-zinc-800 text-zinc-300 rounded-full px-2 my-1 py-[1px] text-xs">
+                  <div class="my-1 rounded-full bg-zinc-800 px-2 py-[1px] text-xs text-zinc-300">
                     {topic}
                   </div>
                 ))}
@@ -58,7 +57,8 @@ const projects = await getProjects();
         }
       </ul>
 
-      <a href={`https://github.com/${GITHUB_USERNAME}`}>More on github {"->"}</a>
+      <a href={`https://github.com/${GITHUB_USERNAME}`}>More on github {'->'}</a
+      >
     </main>
   </body>
 </html>

@@ -1,18 +1,21 @@
 ---
-import BaseHead from 'src/components/BaseHead.astro';
-import Header from "../components/Header.astro";
+import BaseHead from 'src/components/BaseHead.astro'
+import Header from '../components/Header.astro'
 import prisma from 'src/lib/prisma'
-import DisplayBookmarks from 'src/components/DisplayBookmarks';
-import { Bookmarks, Folders } from '@prisma/client';
-import { setCache } from 'src/lib/cache';
+import DisplayBookmarks from 'src/components/DisplayBookmarks'
+import { Bookmarks, Folders } from '@prisma/client'
+import { setCache } from 'src/lib/cache'
 
 setCache(Astro.response, 12 * 60 * 60)
 
-const title = "Geek's Resources";
-const desc = "Treasure's I've hunted over the years.";
+const title = "Geek's Resources"
+const desc = "Treasure's I've hunted over the years."
 
 const [bookmarks, folders] = await Promise.all([
-  prisma.bookmarks.findMany({ orderBy: { createdAt: 'desc' }, include: { folder: false } }), 
+  prisma.bookmarks.findMany({
+    orderBy: { createdAt: 'desc' },
+    include: { folder: false }
+  }),
   prisma.folders.findMany()
 ])
 
@@ -20,9 +23,10 @@ let initialFolder = ''
 
 const bookmarksByFolder: Record<string, Bookmarks[]> = {}
 
-bookmarks.forEach(item => {
-  if(item.folderId) {
-    if(bookmarksByFolder[item.folderId]) bookmarksByFolder[item.folderId].push(item)
+bookmarks.forEach((item) => {
+  if (item.folderId) {
+    if (bookmarksByFolder[item.folderId])
+      bookmarksByFolder[item.folderId].push(item)
     else bookmarksByFolder[item.folderId] = [item]
   }
 })
@@ -30,17 +34,17 @@ bookmarks.forEach(item => {
 const foldersById: Record<string, Folders> = {}
 const foldersByParent: Record<string, string[]> = {}
 
-folders.forEach(item => {
+folders.forEach((item) => {
   foldersById[item.id] = item
 
-  if(item.parentId) {
-    if(foldersByParent[item.parentId]) foldersByParent[item.parentId].push(item.id)
+  if (item.parentId) {
+    if (foldersByParent[item.parentId])
+      foldersByParent[item.parentId].push(item.id)
     else foldersByParent[item.parentId] = [item.id]
   }
 
-  if(item.name === 'Bookmarks bar') initialFolder = item.id
+  if (item.name === 'Bookmarks bar') initialFolder = item.id
 })
-
 ---
 
 <!DOCTYPE html>
@@ -55,7 +59,13 @@ folders.forEach(item => {
 
       <p>{desc}</p>
 
-      <DisplayBookmarks initialFolder={initialFolder} folders={foldersById} foldersByParent={foldersByParent} bookmarksByFolder={bookmarksByFolder} client:load />
+      <DisplayBookmarks
+        initialFolder={initialFolder}
+        folders={foldersById}
+        foldersByParent={foldersByParent}
+        bookmarksByFolder={bookmarksByFolder}
+        client:load
+      />
     </main>
   </body>
 </html>

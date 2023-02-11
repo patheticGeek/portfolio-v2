@@ -1,9 +1,9 @@
 ---
-layout: "../../layouts/BlogPost.astro"
-title: "React hooks on steroids"
-description: ""
-pubDate: "Jul 17 2021"
-heroImage: "/assets/blog/react-state-mgmt-on-crack.png"
+layout: '../../layouts/BlogPost.astro'
+title: 'React hooks on steroids'
+description: ''
+pubDate: 'Jul 17 2021'
+heroImage: '/assets/blog/react-state-mgmt-on-crack.png'
 ---
 
 # Introduction
@@ -25,20 +25,20 @@ So we're coders we love dark themes, but not everyone does, so we need to have s
 We will use the [window.matchMedia](https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia) to match a [CSS media query](https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries) which is [prefers-color-scheme: dark](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme). This will tell us if the user's system theme is dark or not, and this will be our initial state.
 
 ```tsx
-const matchDark = "(prefers-color-scheme: dark)";
+const matchDark = '(prefers-color-scheme: dark)'
 
 const useDarkMode = () => {
   const [isDark, setIsDark] = useState(() => {
     if (process.browser) {
-      return window.matchMedia && window.matchMedia(matchDark).matches;
+      return window.matchMedia && window.matchMedia(matchDark).matches
     }
-    return false;
-  });
+    return false
+  })
 
-  return isDark;
-};
+  return isDark
+}
 
-export default useDarkMode;
+export default useDarkMode
 ```
 
 ## 1.2 Making `useDarkMode` actually useful
@@ -48,41 +48,41 @@ How we do that is, we can attach a listener to `window.matchMedia` and listen fo
 Now to do that in code…
 
 ```tsx
-const matchDark = "(prefers-color-scheme: dark)";
+const matchDark = '(prefers-color-scheme: dark)'
 
 const useDarkMode = () => {
   const [isDark, setIsDark] = useState(() => {
     if (process.browser) {
-      return window.matchMedia && window.matchMedia(matchDark).matches;
+      return window.matchMedia && window.matchMedia(matchDark).matches
     }
-    return false;
-  });
+    return false
+  })
 
   useEffect(() => {
-    const matcher = window.matchMedia(matchDark);
-    const onChange = ({ matches }: MediaQueryListEvent) => setIsDark(matches);
-    matcher.addListener(onChange);
+    const matcher = window.matchMedia(matchDark)
+    const onChange = ({ matches }: MediaQueryListEvent) => setIsDark(matches)
+    matcher.addListener(onChange)
     return () => {
-      matcher.removeListener(onChange);
-    };
-  }, [setIsDark]);
+      matcher.removeListener(onChange)
+    }
+  }, [setIsDark])
 
-  return isDark;
-};
+  return isDark
+}
 
-export default useDarkMode;
+export default useDarkMode
 ```
 
 And now how will be using this hook will look something like
 
 ```tsx
-import useDarkMode from "@hooks/useDarkMode";
+import useDarkMode from '@hooks/useDarkMode'
 
 const App = () => {
-  const theme = useDarkMode() ? themes.dark : themes.light;
+  const theme = useDarkMode() ? themes.dark : themes.light
 
-  return <ThemeProvider value={theme}>...</ThemeProvider>;
-};
+  return <ThemeProvider value={theme}>...</ThemeProvider>
+}
 ```
 
 Now pat yourself on the back! You've made a useful custom hook.
@@ -103,68 +103,67 @@ const useInView = (
   elRef: MutableRefObject<HTMLElement | null>,
   onChange?: (_inView: boolean) => void
 ) => {
-  const [inView, setInView] = useState(false);
+  const [inView, setInView] = useState(false)
 
   useEffect(() => {
     const onScroll = () => {
-      if (!elRef.current) return;
+      if (!elRef.current) return
 
-      const boundingRect = elRef.current.getBoundingClientRect();
-      const elementHeight = elRef.current.offsetHeight;
-      const offsetTop = boundingRect.top;
-      const windowHeight = window.innerHeight;
+      const boundingRect = elRef.current.getBoundingClientRect()
+      const elementHeight = elRef.current.offsetHeight
+      const offsetTop = boundingRect.top
+      const windowHeight = window.innerHeight
       const isVisible =
-        offsetTop + elementHeight > 0 && offsetTop < windowHeight;
+        offsetTop + elementHeight > 0 && offsetTop < windowHeight
       if (isVisible && !inView) {
-        setInView(isVisible);
-        onChange && onChange(isVisible);
+        setInView(isVisible)
+        onChange && onChange(isVisible)
       } else if (!isVisible && inView) {
-        setInView(isVisible);
-        onChange && onChange(isVisible);
+        setInView(isVisible)
+        onChange && onChange(isVisible)
       }
-    };
+    }
 
-    window.addEventListener("scroll", onScroll);
+    window.addEventListener('scroll', onScroll)
     return () => {
-      window.removeEventListener("scroll", onScroll);
-    };
-  }, [elRef, onChange, inView]);
+      window.removeEventListener('scroll', onScroll)
+    }
+  }, [elRef, onChange, inView])
 
-  return inView;
-};
+  return inView
+}
 ```
 
 Using this hook is as simple as creating it
 
 ```tsx
-import React, { useRef } from "react";
+import React, { useRef } from 'react'
 
-import useInView from "@hooks/useInView";
+import useInView from '@hooks/useInView'
 
 const Hooks = () => {
-  const elementRef = useRef<HTMLDivElement>(null);
+  const elementRef = useRef<HTMLDivElement>(null)
   // use as a variable
-  const inView = useInView(elementRef);
+  const inView = useInView(elementRef)
   // or use a callback
   useInView(elementRef, (isInView) => {
-    console.log(isInView ? "element has appeared" : "element has disappeared");
-  });
+    console.log(isInView ? 'element has appeared' : 'element has disappeared')
+  })
 
   return (
     <div className="w-full max-w-screen-md">
       <div className="h-screen"></div>
       <div
         ref={elementRef}
-        className={`py-6 text-center ${inView ? "bg-blue-100" : "bg-red-100"}`}
-      >
-        Is in view: {inView ? "true" : "false"}
+        className={`py-6 text-center ${inView ? 'bg-blue-100' : 'bg-red-100'}`}>
+        Is in view: {inView ? 'true' : 'false'}
       </div>
       <div className="h-screen"></div>
     </div>
-  );
-};
+  )
+}
 
-export default Hooks;
+export default Hooks
 ```
 
 And now you can probably imagine all the places hooks can be useful. In the next part, we'll look at how to manage state in react apps without losing your sanity.

@@ -1,9 +1,9 @@
 ---
-layout: "../../layouts/BlogPost.astro"
-title: "Component State — React state management techniques"
-description: ""
-pubDate: "Jul 29 2021"
-heroImage: "/assets/blog/react-state-management-techniques.png"
+layout: '../../layouts/BlogPost.astro'
+title: 'Component State — React state management techniques'
+description: ''
+pubDate: 'Jul 29 2021'
+heroImage: '/assets/blog/react-state-management-techniques.png'
 ---
 
 ## Introduction
@@ -22,14 +22,14 @@ The `useState` hook used to store some state for that particular component. And 
 
 ```jsx
 function App() {
-  const [name, setName] = useState("");
+  const [name, setName] = useState('')
 
   return (
     <div>
       <input value={name} onChange={(e) => setName(e.target.value)} />
       <p>Your name is: {name}, as if you didn't know already.</p>
     </div>
-  );
+  )
 }
 ```
 
@@ -38,8 +38,8 @@ Now, the `setName` function can also be used as below,
 
 ```jsx
 const addPronouns = () => {
-  setName((oldValue) => oldValue + " (lmao/ded)");
-};
+  setName((oldValue) => oldValue + ' (lmao/ded)')
+}
 ```
 
 We can pass the `setName` a function and the function gets the old value of it, and then we can return a new value based on that old value.
@@ -101,10 +101,10 @@ Let's say we want to store the user object,
 ```jsx
 function SettingsPage() {
   const [user, setUser] = useState({
-    username: "pathetic_geek",
-    avatar: "https://www.secretrickroll.com/assets/opt2.jpg",
+    username: 'pathetic_geek',
+    avatar: 'https://www.secretrickroll.com/assets/opt2.jpg'
     // ...other stuff
-  });
+  })
 
   // used to update the user object, should be called like
   // update({ username: 'noobslayer69' })
@@ -112,10 +112,10 @@ function SettingsPage() {
     // We create an object then put the value of users object in it
     // and then we override it with whatever is in the newValue object
     // The ... used here are called spread operators
-    const value = { ...user, ...newValue };
+    const value = { ...user, ...newValue }
     // and now we set the new value
-    setUser(value);
-  };
+    setUser(value)
+  }
 }
 ```
 
