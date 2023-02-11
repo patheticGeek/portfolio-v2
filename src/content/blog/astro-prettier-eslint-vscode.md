@@ -44,9 +44,9 @@ module.exports = {
 
 ## 2. Setting up eslint
 
-1. The extension cant find `@typescript-eslint/parser`, so set the parser explicitly
-2. Set the `ecmaVersion` & `sourceType`, for error "The keyword import/export is reserved"
-3. Add the override and specify the parser for .astro files
+1. The extension cant find `@typescript-eslint/parser`, so set the parser explicitly.
+2. Set the `ecmaVersion` & `sourceType`, for error "The keyword import/export is reserved".
+3. Add the override for .astro files.
 
 `.eslintrc.cjs`:
 
@@ -81,9 +81,9 @@ module.exports = {
 
 The issue with this extension is that it doesn't know its own abilities, so lets fix that.
 
-1. Set `eslint.validate` to include astro, to tell eslint it can lint astro files
-2. Set `prettier.documentSelectors`, to tell prettier to make it format astro files
-3. Set the default formatter for `astro` files
+1. Set `eslint.validate` to include astro, to tell eslint to validate astro files.
+2. Set `prettier.documentSelectors`, to tell prettier to format astro files.
+3. Set the default formatter for `astro` files.
 
 In your VSCode's `setting.json` file add the following:
 
