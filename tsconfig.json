@@ -7,14 +7,10 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "types": [
-      "vite/client"
-    ],
+    "types": ["vite/client"],
     "baseUrl": ".",
     "jsx": "react-jsx",
     "jsxImportSource": "react"
   },
-  "include": [
-    "./src"
-  ]
+  "include": ["./"],
 }
