@@ -1,3 +1,5 @@
+import { Bookmarks, Folders } from '@prisma/client'
+
 export type Project = {
   name: string
   description: string
@@ -8,3 +10,8 @@ export type Project = {
 }
 
 export type Projects = Array<Project>
+
+export type FolderWithChildren = Folders & {
+  children: Folders[]
+  bookmarks: Bookmarks[]
+}

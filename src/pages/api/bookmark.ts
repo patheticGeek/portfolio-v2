@@ -1,5 +1,7 @@
+import { Bookmarks, Folders } from '@prisma/client'
 import { APIRoute } from 'astro'
 import prisma from 'src/lib/prisma'
+import { FolderWithChildren } from 'src/types'
 import { z } from 'zod'
 
 const BookmarkData = z.object({
@@ -23,7 +25,7 @@ const CreateBookmarkData = z.object({
 })
 
 export const post: APIRoute = async ({ request }) => {
-  const key = new URLSearchParams(request.url).get('key')
+  const key = new URL(request.url).searchParams.get('key')
   if (key !== import.meta.env.BOOKMARKS_API_KEY) {
     return new Response(undefined, { status: 401 })
   }
@@ -49,10 +51,26 @@ export const post: APIRoute = async ({ request }) => {
   return new Response(JSON.stringify({ success: true }))
 }
 
-export const get: APIRoute = async () => {
-  const bookmarks = await prisma.bookmarks.findMany({
-    include: { folder: true }
-  })
+export const get: APIRoute = async ({ request }) => {
+  const folderId = new URL(request.url).searchParams.get('folderId')
 
-  return new Response(JSON.stringify(bookmarks), { status: 200 })
+  let contents: FolderWithChildren | null
+
+  if (folderId) {
+    contents = await prisma.folders.findFirst({
+      where: { id: folderId },
+      include: { children: true, bookmarks: true }
+    })
+  } else {
+    contents = await prisma.folders.findFirst({
+      where: { level: 0 },
+      include: { children: true, bookmarks: true }
+    })
+  }
+
+  if (!contents) {
+    return new Response(undefined, { status: 404 })
+  }
+
+  return new Response(JSON.stringify(contents), { status: 200 })
 }

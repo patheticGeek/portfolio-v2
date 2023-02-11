@@ -42,4 +42,4 @@ const { title, description, image = '/favicon.png', banner } = Astro.props
   rel="stylesheet"
 />
 
-<script defer src="/_vercel/insights/script.js"></script>
+{import.meta.env.PROD && <script defer src="/_vercel/insights/script.js" />}
