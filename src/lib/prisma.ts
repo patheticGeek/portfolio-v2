@@ -6,6 +6,6 @@ declare global {
 
 const prisma: PrismaClient = global.prisma || new PrismaClient()
 
-if (process.env.NODE_ENV === 'development') global.prisma = prisma
+if (import.meta.env.DEV) global.prisma = prisma
 
 export default prisma

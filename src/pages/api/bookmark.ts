@@ -24,7 +24,7 @@ const CreateBookmarkData = z.object({
 
 export const post: APIRoute = async ({ request }) => {
   const key = new URLSearchParams(request.url).get('key')
-  if (key !== process.env.BOOKMARKS_API_KEY) {
+  if (key !== import.meta.env.BOOKMARKS_API_KEY) {
     return new Response(undefined, { status: 401 })
   }
 

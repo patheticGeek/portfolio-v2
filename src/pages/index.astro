@@ -1,6 +1,9 @@
 ---
 import PageLayout from 'src/layouts/PageLayout.astro'
 import { SITE_TITLE, SITE_DESCRIPTION, HOME_LINKS } from 'src/config'
+import { getPinnedProjects } from 'src/lib/github'
+
+const pinnedProjects = await getPinnedProjects(5)
 ---
 
 <PageLayout title={SITE_TITLE} description={SITE_DESCRIPTION} class="space-y-5">
@@ -17,44 +20,45 @@ import { SITE_TITLE, SITE_DESCRIPTION, HOME_LINKS } from 'src/config'
       Currently looking for full time opportunities, see my
       <a href="/resume">resume</a>.
     </p>
-
-    <p>
-      Checkout some of my <a href="/projects">projects</a>,
-      <a href="/blog">blogs</a>
-      or find some new <a href="/resources">resources</a>.
-    </p>
   </section>
 
-  <!-- <section>
-    <h2>My tech stack</h2>
+  {
+    pinnedProjects && (
+      <section>
+        <h2>Pinned Projects</h2>
 
-    <ul>
-      <li>
-        <b>Languages:</b>
-        <p>JavaScript, TypeScript, HTML/CSS</p>
-      </li>
+        <ul class="space-y-4">
+          {pinnedProjects.map((project) => (
+            <li class="space-y-1">
+              <div class="flex flex-col space-x-2 md:flex-row">
+                <a
+                  class="block font-medium text-white"
+                  href={project.website || project.github_url}
+                  target="_blank">
+                  {project.name}
+                </a>
 
-      <li>
-        <b>Frameworks:</b>
-        <p>Node.js, React, Next.js, React Native, Svelte, Astro</p>
-      </li>
+                <div class="no-scrollbar flex items-center space-x-2 overflow-scroll whitespace-nowrap">
+                  {project.topics.map((topic) => (
+                    <div class="my-1 rounded-full bg-zinc-800 px-2 py-[1px] text-xs text-zinc-300">
+                      {topic}
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <p class="mx-0.5 text-sm text-zinc-200">{project.description}</p>
+            </li>
+          ))}
+        </ul>
 
-      <li>
-        <b>Libraries:</b>
-        <p>Redux, MobX, Zustand, React Query, GraphQL, tRPC</p>
-      </li>
-
-      <li>
-        <b>Platfroms & Tools:</b>
-        <p>GCP, AWS, Firebase, Docker, VS Code, Git/Github, Linux</p>
-      </li>
-
-      <li>
-        <b>Design & UI:</b>
-        <p>Figma, Bootstap, Tailwind, Radix UI</p>
-      </li>
-    </ul>
-  </section> -->
+        <p>
+          Checkout more <a href="/projects">projects</a>,
+          <a href="/blog">blogs</a>
+          or find some new <a href="/resources">resources</a>.
+        </p>
+      </section>
+    )
+  }
 
   <section>
     <h2>Find me at:</h2>
