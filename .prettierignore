@@ -1,1 +1,2 @@
-src/pages/blog
+.vercel
+node_modules
