@@ -1,5 +1,6 @@
 export const SITE_TITLE = 'Pathetic Geek'
 export const SITE_DESCRIPTION = 'Hey there 👋'
+
 export const GITHUB_USERNAME = 'patheticGeek'
 export const GITHUB_TOPIC = 'in-portfolio'
 

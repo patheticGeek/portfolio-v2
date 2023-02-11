@@ -96,6 +96,10 @@
   blockquote p {
     @apply my-0;
   }
+
+  hr {
+    @apply border-zinc-700;
+  }
 }
 
 @layer utilities {

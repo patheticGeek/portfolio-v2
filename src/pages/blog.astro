@@ -1,6 +1,5 @@
 ---
-import BaseHead from '../components/BaseHead.astro'
-import Header from '../components/Header.astro'
+import PageLayout from 'src/layouts/PageLayout.astro'
 
 const title = "Geek's Blogs"
 const desc =
@@ -13,47 +12,33 @@ const posts = (await Astro.glob('./blog/*.{md,mdx}')).sort(
 )
 ---
 
-<!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <BaseHead title={title} description={desc} />
-  </head>
-  <body>
-    <Header />
-    <main>
-      <h1>{title}</h1>
+<PageLayout title={title} description={desc}>
+  <h1>{title}</h1>
 
-      <p>{desc}</p>
+  <p>{desc}</p>
 
-      <content>
-        <ul class="my-4 space-y-4">
-          {
-            posts.map((post) => {
-              const words = post.frontmatter.description.split(' ')
-              const ellipsis = words.length > 16 ? '...' : ''
-              const desc = words.slice(0, 16).join(' ') + ellipsis
-              return (
-                <li>
-                  <a class="block w-full" href={post.url}>
-                    {post.frontmatter.title}
-                  </a>
-                  <time class="text-xs" datetime={post.frontmatter.pubDate}>
-                    {new Date(post.frontmatter.pubDate).toLocaleDateString(
-                      'en-us',
-                      {
-                        year: 'numeric',
-                        month: 'short',
-                        day: 'numeric'
-                      }
-                    )}
-                  </time>
-                  <p class="my-0">{desc}</p>
-                </li>
-              )
-            })
-          }
-        </ul>
-      </content>
-    </main>
-  </body>
-</html>
+  <ul class="my-4 space-y-4">
+    {
+      posts.map((post) => {
+        const words = post.frontmatter.description.split(' ')
+        const ellipsis = words.length > 16 ? '...' : ''
+        const desc = words.slice(0, 16).join(' ') + ellipsis
+        return (
+          <li>
+            <a class="block w-full" href={post.url}>
+              {post.frontmatter.title}
+            </a>
+            <time class="text-xs" datetime={post.frontmatter.pubDate}>
+              {new Date(post.frontmatter.pubDate).toLocaleDateString('en-us', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+              })}
+            </time>
+            <p class="my-0">{desc}</p>
+          </li>
+        )
+      })
+    }
+  </ul>
+</PageLayout>

@@ -1,10 +1,9 @@
 ---
-import BaseHead from 'src/components/BaseHead.astro'
-import Header from '../components/Header.astro'
 import prisma from 'src/lib/prisma'
 import DisplayBookmarks from 'src/components/DisplayBookmarks'
 import { Bookmarks, Folders } from '@prisma/client'
 import { setCache } from 'src/lib/cache'
+import PageLayout from 'src/layouts/PageLayout.astro'
 
 setCache(Astro.response, 12 * 60 * 60)
 
@@ -47,25 +46,16 @@ folders.forEach((item) => {
 })
 ---
 
-<!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <BaseHead title={title} description={desc} />
-  </head>
-  <body>
-    <Header />
-    <main>
-      <h1>{title}</h1>
+<PageLayout title={title} description={desc}>
+  <h1>{title}</h1>
 
-      <p>{desc}</p>
+  <p>{desc}</p>
 
-      <DisplayBookmarks
-        initialFolder={initialFolder}
-        folders={foldersById}
-        foldersByParent={foldersByParent}
-        bookmarksByFolder={bookmarksByFolder}
-        client:load
-      />
-    </main>
-  </body>
-</html>
+  <DisplayBookmarks
+    initialFolder={initialFolder}
+    folders={foldersById}
+    foldersByParent={foldersByParent}
+    bookmarksByFolder={bookmarksByFolder}
+    client:load
+  />
+</PageLayout>

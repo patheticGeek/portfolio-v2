@@ -1,48 +1,72 @@
 ---
-import BaseHead from '../components/BaseHead.astro'
-import Header from '../components/Header.astro'
-import { SITE_TITLE, SITE_DESCRIPTION, HOME_LINKS } from '../config'
+import PageLayout from 'src/layouts/PageLayout.astro'
+import { SITE_TITLE, SITE_DESCRIPTION, HOME_LINKS } from 'src/config'
 ---
 
-<!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-  </head>
-  <body>
-    <Header title={SITE_TITLE} />
-    <main>
-      <h1>Hey there 👋</h1>
+<PageLayout title={SITE_TITLE} description={SITE_DESCRIPTION} class="space-y-5">
+  <section>
+    <h1>Hey there, I'm <span class="text-amber-500">Geek</span> 👋</h1>
 
-      <p>
-        People usually call me Geek and I'm a full-stack developer working
-        mainly in frontend with experience building web-based video editor,
-        ed-tech platforms, and more. I have a passion for creating innovative
-        and user-friendly interfaces.
-      </p>
+    <p>
+      A full-stack developer working mainly in frontend with experience building
+      web-based video editor, ed-tech platforms, and more. I have a passion for
+      creating innovative and user-friendly interfaces.
+    </p>
 
-      <p>
-        I am currently looking for full time opportunities. You can checkout my <a
-          href="/resume">resume here</a
-        >.
-      </p>
+    <p>
+      Currently looking for full time opportunities, see my
+      <a href="/resume">resume</a>.
+    </p>
 
-      <p>
-        Checkout some of <a href="/projects">my projects</a>, <a href="/blog"
-          >blogs</a
-        > or find something new <a href="/resources">here</a>.
-      </p>
+    <p>
+      Checkout some of my <a href="/projects">projects</a>,
+      <a href="/blog">blogs</a>
+      or find some new <a href="/resources">resources</a>.
+    </p>
+  </section>
 
-      <h3>Find me at:</h3>
-      <ul>
-        {
-          HOME_LINKS.map((link) => (
-            <li>
-              <a href={link.href}>{link.label}</a>
-            </li>
-          ))
-        }
-      </ul>
-    </main>
-  </body>
-</html>
+  <!-- <section>
+    <h2>My tech stack</h2>
+
+    <ul>
+      <li>
+        <b>Languages:</b>
+        <p>JavaScript, TypeScript, HTML/CSS</p>
+      </li>
+
+      <li>
+        <b>Frameworks:</b>
+        <p>Node.js, React, Next.js, React Native, Svelte, Astro</p>
+      </li>
+
+      <li>
+        <b>Libraries:</b>
+        <p>Redux, MobX, Zustand, React Query, GraphQL, tRPC</p>
+      </li>
+
+      <li>
+        <b>Platfroms & Tools:</b>
+        <p>GCP, AWS, Firebase, Docker, VS Code, Git/Github, Linux</p>
+      </li>
+
+      <li>
+        <b>Design & UI:</b>
+        <p>Figma, Bootstap, Tailwind, Radix UI</p>
+      </li>
+    </ul>
+  </section> -->
+
+  <section>
+    <h2>Find me at:</h2>
+
+    <ul>
+      {
+        HOME_LINKS.map((link) => (
+          <li>
+            <a href={link.href}>{link.label}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</PageLayout>
