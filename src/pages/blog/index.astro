@@ -1,14 +1,13 @@
 ---
+import { getCollection } from 'astro:content'
 import PageLayout from 'src/layouts/PageLayout.astro'
 
 const title = "Geek's Blogs"
 const desc =
   'Every sentence is just a remix of the dictionary, and here are my remixes.'
 
-const posts = (await Astro.glob('./blog/*.{md,mdx}')).sort(
-  (a, b) =>
-    new Date(b.frontmatter.pubDate).valueOf() -
-    new Date(a.frontmatter.pubDate).valueOf()
+const posts = (await getCollection('blog', (entry) => !entry.data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 )
 ---
 
@@ -20,16 +19,16 @@ const posts = (await Astro.glob('./blog/*.{md,mdx}')).sort(
   <ul class="my-4 space-y-4">
     {
       posts.map((post) => {
-        const words = post.frontmatter.description.split(' ')
+        const words = post.data.description.split(' ')
         const ellipsis = words.length > 16 ? '...' : ''
         const desc = words.slice(0, 16).join(' ') + ellipsis
         return (
           <li>
-            <a class="block w-full" href={post.url}>
-              {post.frontmatter.title}
+            <a class="block w-full" href={`/blog/${post.slug}`}>
+              {post.data.title}
             </a>
-            <time class="text-xs" datetime={post.frontmatter.pubDate}>
-              {new Date(post.frontmatter.pubDate).toLocaleDateString('en-us', {
+            <time class="text-xs" datetime={post.data.pubDate.toDateString()}>
+              {new Date(post.data.pubDate).toLocaleDateString('en-us', {
                 year: 'numeric',
                 month: 'short',
                 day: 'numeric'

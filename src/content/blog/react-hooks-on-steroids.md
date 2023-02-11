@@ -1,5 +1,4 @@
 ---
-layout: '../../layouts/BlogPost.astro'
 title: 'React hooks on steroids'
 description: ''
 pubDate: 'Jul 17 2021'

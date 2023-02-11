@@ -15,7 +15,7 @@ import { NAV_LINKS, SITE_TITLE } from 'src/config'
           <a
             class:list={[
               'px-1',
-              link.href === Astro.url.pathname && 'decoration-current'
+              link.href === Astro.url.pathname && 'decoration-amber-200'
             ]}
             href={link.href}>
             {link.label}

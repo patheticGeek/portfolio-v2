@@ -1,5 +1,4 @@
 ---
-layout: '../../layouts/BlogPost.astro'
 title: 'React state management on crack'
 description: ''
 pubDate: 'Jul 18 2021'

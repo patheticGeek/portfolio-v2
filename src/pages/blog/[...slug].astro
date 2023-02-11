@@ -1,24 +1,19 @@
 ---
-import BaseHead from '../components/BaseHead.astro'
-import Header from '../components/Header.astro'
-import Footer from '../components/Footer.astro'
-import PageLayout from './PageLayout.astro'
+import { getEntryBySlug } from 'astro:content'
+import PageLayout from 'src/layouts/PageLayout.astro'
 
-export interface Props {
-  content: {
-    title: string
-    description: string
-    pubDate?: string
-    updatedDate?: string
-    heroImage?: string
-  }
-}
+const { slug } = Astro.params
 
-const {
-  content: { title, description, pubDate, updatedDate, heroImage }
-} = Astro.props as Props
+if (!slug) return new Response(undefined, { status: 404 })
 
+const entry = await getEntryBySlug('blog', slug)
+
+if (!entry) return new Response(undefined, { status: 404 })
+
+const { title, description, pubDate, updatedDate, heroImage } = entry.data
 const imgUrl = heroImage ? new URL(heroImage, Astro.url).toString() : undefined
+
+const { Content } = await entry.render()
 ---
 
 <PageLayout
@@ -31,12 +26,12 @@ const imgUrl = heroImage ? new URL(heroImage, Astro.url).toString() : undefined
       <div class="space-y-1 pl-10 pr-4">
         <h1 class="mb-3 text-2xl">{title}</h1>
         <div class="text-sm">
-          <time>{pubDate}</time>
+          <time>{pubDate.toDateString()}</time>
         </div>
         {
           updatedDate && (
             <div>
-              Last updated on <time>{updatedDate}</time>
+              Updated on <time>{updatedDate.toDateString()}</time>
             </div>
           )
         }
@@ -57,7 +52,7 @@ const imgUrl = heroImage ? new URL(heroImage, Astro.url).toString() : undefined
         }
       </div>
       <div class="pl-10 pr-4">
-        <slot />
+        <Content />
       </div>
     </div>
   </article>

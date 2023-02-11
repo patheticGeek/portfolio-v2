@@ -4,19 +4,19 @@
 
 @layer base {
   body {
-    @apply w-full min-h-screen flex flex-col bg-zinc-900 text-white selection:bg-amber-200 selection:bg-opacity-90 selection:text-black font-light;
+    @apply flex min-h-screen w-full flex-col bg-zinc-900 font-light text-white selection:bg-amber-200 selection:bg-opacity-90 selection:text-black;
   }
 
   main {
-    @apply w-full max-w-3xl mx-auto my-5 pl-10 pr-4;
+    @apply mx-auto my-5 w-full max-w-3xl pl-10 pr-4;
   }
 
   a {
-    @apply text-zinc-400 hover:text-white underline underline-offset-4 decoration-transparent hover:decoration-slate-300 transition;
+    @apply text-zinc-400 underline decoration-transparent underline-offset-4 transition hover:text-white hover:decoration-amber-200;
   }
 
   .before-style {
-    @apply absolute top-0 left-0 -translate-x-full px-1 text-slate-600 font-medium;
+    @apply absolute top-0 left-0 -translate-x-full px-1 font-medium text-slate-600;
   }
 
   h1,
@@ -29,27 +29,27 @@
   }
 
   :not(p, li) h1::before {
-    content: "#";
+    content: '#';
     @apply before-style;
   }
 
   :not(p, li) h2::before {
-    content: "##";
+    content: '##';
     @apply before-style;
   }
 
   :not(p, li) h3::before {
-    content: "###";
+    content: '###';
     @apply before-style;
   }
 
   :not(p, li) h4::before {
-    content: "####";
+    content: '####';
     @apply before-style;
   }
 
   :not(p, li) h5::before {
-    content: "#####";
+    content: '#####';
     @apply before-style;
   }
 
@@ -65,7 +65,7 @@
     @apply my-1;
   }
   ul > li::before {
-    content: "=>";
+    content: '=>';
     @apply before-style;
   }
   ol {
@@ -80,18 +80,18 @@
   }
   code::before,
   code::after {
-    content: "`";
+    content: '`';
   }
   pre {
-    @apply text-sm py-2 px-3 rounded whitespace-pre-wrap;
+    @apply whitespace-pre-wrap rounded py-2 px-3 text-sm;
   }
   pre code::before,
   pre code::after {
-    content: "";
+    content: '';
   }
 
   blockquote {
-    @apply border-l-2 border-slate-600 pl-4 py-1;
+    @apply border-l-2 border-slate-600 py-1 pl-4;
   }
   blockquote p {
     @apply my-0;

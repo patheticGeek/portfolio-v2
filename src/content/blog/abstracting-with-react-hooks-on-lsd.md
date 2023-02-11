@@ -1,5 +1,4 @@
 ---
-layout: '../../layouts/BlogPost.astro'
 title: 'Abstracting with react hooks on LSD'
 description: ''
 pubDate: 'Jul 19 2021'

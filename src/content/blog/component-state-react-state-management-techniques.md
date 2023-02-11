@@ -1,5 +1,4 @@
 ---
-layout: '../../layouts/BlogPost.astro'
 title: 'Component State — React state management techniques'
 description: ''
 pubDate: 'Jul 29 2021'
