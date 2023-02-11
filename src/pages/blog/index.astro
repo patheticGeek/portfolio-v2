@@ -22,6 +22,7 @@ const posts = (await getCollection('blog', (entry) => !entry.data.draft)).sort(
         const words = post.data.description.split(' ')
         const ellipsis = words.length > 16 ? '...' : ''
         const desc = words.slice(0, 16).join(' ') + ellipsis
+
         return (
           <li>
             <a class="block w-full" href={`/blog/${post.slug}`}>
@@ -34,7 +35,7 @@ const posts = (await getCollection('blog', (entry) => !entry.data.draft)).sort(
                 day: 'numeric'
               })}
             </time>
-            <p class="my-0">{desc}</p>
+            <p class="my-0 text-sm">{desc}</p>
           </li>
         )
       })
