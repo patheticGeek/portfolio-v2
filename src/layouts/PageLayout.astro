@@ -23,5 +23,20 @@ const { title, description, banner, class: className } = Astro.props
     <main class={className}>
       <slot />
     </main>
+
+    <script>
+      import { webVitals } from 'src/lib/vitals'
+
+      const analyticsId = import.meta.env.PUBLIC_VERCEL_ANALYTICS_ID
+      console.log({ analyticsId })
+      if (analyticsId) {
+        webVitals({
+          path: window.location.pathname,
+          analyticsId,
+          debug: import.meta.env.DEV,
+          params: {}
+        })
+      }
+    </script>
   </body>
 </html>

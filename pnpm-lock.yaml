@@ -27,6 +27,7 @@ specifiers:
   rehype-autolink-headings: ^6.1.1
   tailwindcss: ^3.2.4
   typescript: ^4.9.5
+  web-vitals: ^3.1.1
   zod: ^3.20.2
 
 dependencies:
@@ -39,6 +40,7 @@ dependencies:
   react-dom: 18.2.0_react@18.2.0
   rehype-autolink-headings: 6.1.1
   tailwindcss: 3.2.4
+  web-vitals: 3.1.1
   zod: 3.20.2
 
 devDependencies:
@@ -5337,6 +5339,10 @@ packages:
   /web-namespaces/2.0.1:
     resolution: {integrity: sha512-bKr1DkiNa2krS7qxNtdrtHAmzuYGFQLiQ13TsorsdT6ULTkPLKuu5+GsFpDlg6JFjUTwX2DyhMPG2be8uPrqsQ==}
     dev: true
+
+  /web-vitals/3.1.1:
+    resolution: {integrity: sha512-qvllU+ZeQChqzBhZ1oyXmWsjJ8a2jHYpH8AMaVuf29yscOPZfTQTjQFRX6+eADTdsDE8IanOZ0cetweHMs8/2A==}
+    dev: false
 
   /webidl-conversions/3.0.1:
     resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}
