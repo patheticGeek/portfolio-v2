@@ -41,10 +41,9 @@ const { Content } = await entry.render()
         {
           heroImage ? (
             <img
-              height={360}
               src={heroImage}
               alt={title}
-              class="max-h-[60vh] w-full object-contain object-center"
+              class="aspect-video w-full object-contain object-center"
             />
           ) : (
             <hr />
