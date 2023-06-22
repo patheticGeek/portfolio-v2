@@ -1,0 +1,172 @@
+{
+  "main": {
+    "id": "c259ea8cdaaf686d",
+    "type": "split",
+    "children": [
+      {
+        "id": "fbe61ffc6999091f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4c34c3d86ac70b94",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "blog/abstracting-with-react-hooks-on-lsd.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "4d12a2493fb6164f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "blog/react-state-mgmt-on-crack.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "2c1cac9d4d2ab7ac",
+    "type": "split",
+    "children": [
+      {
+        "id": "2aca45a09268cac0",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b975c8d7b9fe1af4",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "e823d8452aaa8ed2",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "b4a1a9bcf6f1b6fc",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "28e3c64218692bbe",
+    "type": "split",
+    "children": [
+      {
+        "id": "139ef0d46767f9f4",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "2669d9fb6706028d",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "blog/react-state-mgmt-on-crack.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "7b7e7993e4c83763",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "blog/react-state-mgmt-on-crack.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "fc99edf05343f6bb",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "ddeecd37a71df9b9",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "blog/react-state-mgmt-on-crack.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "4d12a2493fb6164f",
+  "lastOpenFiles": [
+    "blog/react-hooks-on-steroids.md",
+    "blog/component-state-react-state-management-techniques.md",
+    "blog/chatgpt-x-beginners--a-horror-story.md",
+    "blog/react-state-mgmt-on-crack.md",
+    "templates/blog.md",
+    "templates",
+    "blog/abstracting-with-react-hooks-on-lsd.md"
+  ]
+}
