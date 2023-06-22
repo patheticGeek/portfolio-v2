@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    color-scheme: dark;
+  }
   body {
     @apply flex min-h-screen w-full flex-col bg-zinc-900 font-light text-white selection:bg-amber-200 selection:bg-opacity-90 selection:text-black;
   }
@@ -26,6 +29,19 @@
   h5,
   h6 {
     @apply relative my-2 font-medium tracking-wide;
+  }
+
+  article h1 {
+    @apply mt-6 mb-3 text-3xl font-bold;
+  }
+  article h2 {
+    @apply mt-8 mb-3 text-2xl font-semibold;
+  }
+  article :is(h3, h4, h5, h6) {
+    @apply mt-6 mb-3 text-lg;
+  }
+  article p {
+    @apply my-3;
   }
 
   :not(p, li) h1::before {

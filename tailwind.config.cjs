@@ -1,12 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{astro,html,js,jsx,svelte,ts,tsx,vue}"],
+  content: ['./src/**/*.{astro,html,js,jsx,svelte,ts,tsx,vue}'],
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Fira Code", "sans-serif"],
-      },
-    },
+        sans: ['Fira Code', 'sans-serif'],
+        mono: ['Fira Code', 'sans-serif']
+      }
+    }
   },
-  plugins: [],
-};
+  plugins: []
+}
