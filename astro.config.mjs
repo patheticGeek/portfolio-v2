@@ -11,13 +11,13 @@ export default defineConfig({
   output: 'server',
   adapter: vercel(),
   integrations: [
-    mdx(),
     tailwind({
       config: {
         applyBaseStyles: false
       }
     }),
-    react()
+    react(),
+    mdx()
   ],
   markdown: {
     rehypePlugins: [rehypeHeadingIds],
