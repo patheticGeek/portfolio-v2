@@ -37,12 +37,12 @@ const pageLink = new URL(head.canonical, import.meta.env.SITE)
         <h1>{title}</h1>
 
         <div class="text-sm">
-          <time>{pubDate.toDateString()}</time>
+          <time datetime={pubDate.toISOString().split(('T'))[0]}>{pubDate.toDateString()}</time>
         </div>
         {
           updatedDate && (
-            <div>
-              Updated on <time>{updatedDate.toDateString()}</time>
+            <div class="text-sm">
+              Updated on <time datetime={updatedDate.toISOString().split(('T'))[0]}>{updatedDate.toDateString()}</time>
             </div>
           )
         }
