@@ -6,7 +6,7 @@ import { getEntryBySlug } from "astro:content";
 import { BLOG } from "src/config";
 
 const fonts = [
-  fs.readFile('node_modules/@fontsource/fira-code/files/fira-code-latin-500-normal.woff'),
+  fs.readFile(`${process.cwd()}/public/fira-code-latin-500-normal.woff`),
 ]
 
 export const GET: APIRoute = async ({ params: { slug } }) => {
