@@ -11,7 +11,7 @@ const posts = (await getCollection('blog', (entry) => !entry.data.draft)).sort(
 )
 ---
 
-<PageLayout title={title} description={desc}>
+<PageLayout head={{title, description: desc}} showFooter={true}>
   <h1>{title}</h1>
 
   <p>{desc}</p>

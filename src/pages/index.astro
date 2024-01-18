@@ -6,7 +6,7 @@ import { getPinnedProjects } from 'src/lib/github'
 const pinnedProjects = await getPinnedProjects(5)
 ---
 
-<PageLayout title={SITE_TITLE} description={SITE_DESCRIPTION} class="space-y-5">
+<PageLayout head={{title: SITE_TITLE, description: SITE_DESCRIPTION}} class="space-y-5">
   <section>
     <h1>Hey there, I'm <span class="text-amber-200">Geek</span> 👋</h1>
 
