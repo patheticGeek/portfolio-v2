@@ -1,7 +1,6 @@
 import satori from "satori";
 import { html } from "satori-html";
 import type { APIRoute } from "astro";
-import sharp from "sharp";
 import * as fs from 'fs/promises';
 import { getEntryBySlug } from "astro:content";
 import { BLOG } from "src/config";
@@ -10,7 +9,7 @@ const fonts = [
   fs.readFile('node_modules/@fontsource/fira-code/files/fira-code-latin-500-normal.woff'),
 ]
 
-export const get: APIRoute = async ({ params: { slug } }) => {
+export const GET: APIRoute = async ({ params: { slug } }) => {
   const entry = await getEntryBySlug('blog', slug)
 
   if(!entry) return new Response(undefined, { status: 404 })
@@ -48,13 +47,10 @@ export const get: APIRoute = async ({ params: { slug } }) => {
     ],
   });
 
-  const png = sharp(Buffer.from(svg)).png();
-  const response = await png.toBuffer();
-
-  return new Response(response, {
+  return new Response(svg, {
     status: 200,
     headers: {
-      "Content-Type": "image/png",
+      "Content-Type": "image/svg",
       "Cache-Control": "s-maxage=1, stale-while-revalidate=59",
     },
   });
