@@ -21,3 +21,9 @@ export const NAV_LINKS = [
   { label: 'Projects', href: '/projects' },
   { label: 'Blog', href: '/blog' }
 ]
+
+export const BLOG = {
+  author: {
+    name: 'Pathetic Geek'
+  }
+}

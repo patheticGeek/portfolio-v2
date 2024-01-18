@@ -12,19 +12,20 @@ const entry = await getEntryBySlug('blog', slug)
 if (!entry) return new Response(undefined, { status: 404 })
 
 const { title, description, pubDate, updatedDate, heroImage } = entry.data
-const imgUrl = heroImage ? new URL(heroImage, Astro.url).toString() : undefined
 
 const { Content } = await entry.render()
+
+const pagePath = `/blog/${slug}`
+const pageLink = new URL(pagePath, import.meta.env.SITE)
 
 const head = {
   title: `${title} - Geek's blog`,
   ogTitle: title,
   description,
-  banner: imgUrl,
-  canonical: `/blog/${slug}`
+  image: `${pagePath}.png`,
+  canonical: pagePath
 } satisfies BaseHeadProps
 
-const pageLink = new URL(head.canonical, import.meta.env.SITE)
 ---
 
 <PageLayout head={head} class="max-w-full p-0" showFooter={true}>
