@@ -6,13 +6,11 @@ import { getEntryBySlug } from "astro:content";
 import { BLOG } from "src/config";
 import { ReactNode } from "react";
 
-const url = new URL('fira-code-latin-500-normal.woff', import.meta.url);
-const fonts = [
-  fs.readFile(url),
-]
+const url = new URL('../../../public/fira-code-latin-500-normal.woff', import.meta.url);
+const fonts = [fs.readFile(url)]
 
 export const GET: APIRoute = async ({ params: { slug } }) => {
-  const entry = await getEntryBySlug('blog', slug)
+  const entry = await getEntryBySlug('blog', slug || '')
 
   if(!entry) return new Response(undefined, { status: 404 })
 
