@@ -22,7 +22,7 @@ const head = {
   title: `${title} - Geek's blog`,
   ogTitle: title,
   description,
-  image: `${pagePath}.png`,
+  image: { src:`${pagePath}.png`, size: 'large', width: 1200, height: 630 },
   canonical: pagePath
 } satisfies BaseHeadProps
 
