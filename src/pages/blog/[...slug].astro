@@ -2,7 +2,6 @@
 import { getEntryBySlug } from 'astro:content'
 import { Props as BaseHeadProps } from 'src/components/BaseHead.astro'
 import PageLayout from 'src/layouts/PageLayout.astro'
-import Giscus from '@giscus/react'
 
 const { slug } = Astro.params
 
@@ -68,23 +67,5 @@ const head = {
       <div class="pl-10 pr-4">
         <Content />
       </div>
-
-      <script 
-        src="https://giscus.app/client.js"
-        data-repo="patheticGeek/blog"
-        data-repo-id="R_kgDOLEsztQ"
-        data-category="Blog"
-        data-category-id="DIC_kwDOLEsztc4Ccac3"
-        data-mapping="specific"
-        data-term={slug}
-        data-strict="1"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="top"
-        data-theme="transparent_dark"
-        data-lang="en"
-        crossorigin="anonymous"
-        async>
-      </script>
   </article>
 </PageLayout>
