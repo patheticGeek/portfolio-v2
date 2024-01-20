@@ -33,7 +33,7 @@ dependencies:
     specifier: ^0.3.2
     version: 0.3.2
   sharp:
-    specifier: ^0.33.2
+    specifier: 0.33.2
     version: 0.33.2
   tailwindcss:
     specifier: ^3.3.3
