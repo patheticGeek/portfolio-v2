@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content'
 import PageLayout from 'src/layouts/PageLayout.astro'
 
-const title = "Geek's Blogs"
+export const title = "Geek's Blog"
 const desc =
   'Every sentence is just a remix of the dictionary, and here are my remixes.'
 
@@ -11,7 +11,7 @@ const posts = (await getCollection('blog', (entry) => !entry.data.draft)).sort(
 )
 ---
 
-<PageLayout title={title} description={desc}>
+<PageLayout head={{title, description: desc}} showFooter={true}>
   <h1>{title}</h1>
 
   <p>{desc}</p>
@@ -28,7 +28,7 @@ const posts = (await getCollection('blog', (entry) => !entry.data.draft)).sort(
             <a class="block w-full" href={`/blog/${post.slug}`}>
               {post.data.title}
             </a>
-            <time class="text-xs" datetime={post.data.pubDate.toDateString()}>
+            <time class="text-xs" datetime={post.data.pubDate.toISOString().split(('T'))[0]}>
               {new Date(post.data.pubDate).toLocaleDateString('en-us', {
                 year: 'numeric',
                 month: 'short',

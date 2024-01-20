@@ -1,5 +1,5 @@
 export const SITE_TITLE = 'Pathetic Geek'
-export const SITE_DESCRIPTION = 'Hey there 👋'
+export const SITE_DESCRIPTION = 'A full-stack developer working on MERN stack with experience building web-based video editor, ed-tech platforms, and more from scratch.'
 
 export const GITHUB_USERNAME = 'patheticGeek'
 export const GITHUB_TOPIC = 'in-portfolio'
@@ -21,3 +21,9 @@ export const NAV_LINKS = [
   { label: 'Projects', href: '/projects' },
   { label: 'Blog', href: '/blog' }
 ]
+
+export const BLOG = {
+  author: {
+    name: 'Pathetic Geek'
+  }
+}

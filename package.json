@@ -1,5 +1,5 @@
 {
-  "name": "@example/blog",
+  "name": "@pathetic_geek/blog",
   "version": "0.0.1",
   "private": true,
   "type": "module",
@@ -13,11 +13,12 @@
   },
   "devDependencies": {
     "@astrojs/mdx": "^1.1.0",
-    "@astrojs/sitemap": "^3.0.0",
     "@astrojs/tailwind": "^5.0.0",
     "@astrojs/vercel": "^5.0.0",
+    "@types/node": "^20.11.5",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
+    "@types/sharp": "0.30.4",
     "@typescript-eslint/parser": "^5.62.0",
     "astro": "^3.1.0",
     "eslint": "^8.49.0",
@@ -38,9 +39,23 @@
     "clsx": "^1.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "rehype-autolink-headings": "^6.1.1",
+    "satori": "^0.10.11",
+    "satori-html": "^0.3.2",
+    "sharp": "0.30.4",
     "tailwindcss": "^3.3.3",
     "web-vitals": "^3.4.0",
     "zod": "^3.22.2"
+  },
+  "pnpm": {
+    "supportedArchitectures": {
+      "os": [
+        "linux",
+        "current"
+      ],
+      "cpu": [
+        "x64",
+        "arm64"
+      ]
+    }
   }
 }

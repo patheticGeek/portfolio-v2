@@ -1,5 +1,6 @@
 ---
 import { getEntryBySlug } from 'astro:content'
+import { Props as BaseHeadProps } from 'src/components/BaseHead.astro'
 import PageLayout from 'src/layouts/PageLayout.astro'
 
 const { slug } = Astro.params
@@ -11,32 +12,44 @@ const entry = await getEntryBySlug('blog', slug)
 if (!entry) return new Response(undefined, { status: 404 })
 
 const { title, description, pubDate, updatedDate, heroImage } = entry.data
-const imgUrl = heroImage ? new URL(heroImage, Astro.url).toString() : undefined
 
 const { Content } = await entry.render()
+
+const pagePath = `/blog/${slug}`
+const pageLink = new URL(pagePath, import.meta.env.SITE)
+
+const head = {
+  title: `${title} - Geek's blog`,
+  ogTitle: title,
+  description,
+  image: { src:`${pagePath}.png`, size: 'large', width: 1200, height: 630 },
+  canonical: pagePath
+} satisfies BaseHeadProps
+
 ---
 
-<PageLayout
-  title={`${title} - Geek's blog`}
-  description={description}
-  banner={imgUrl || undefined}
-  class="max-w-full p-0">
-  <article>
-    <div class="mx-auto w-full max-w-3xl space-y-3">
+<PageLayout head={head} class="max-w-full p-0" showFooter={true}>
+  <Fragment slot="head">
+    <meta name="giscus:backlink" content={pageLink} />
+  </Fragment>
+
+  <article class="mx-auto w-full max-w-3xl space-y-3">
       <div class="space-y-1 pl-10 pr-4">
         <h1>{title}</h1>
+
         <div class="text-sm">
-          <time>{pubDate.toDateString()}</time>
+          <time datetime={pubDate.toISOString().split(('T'))[0]}>{pubDate.toDateString()}</time>
         </div>
         {
           updatedDate && (
-            <div>
-              Updated on <time>{updatedDate.toDateString()}</time>
+            <div class="text-sm">
+              Updated on <time datetime={updatedDate.toISOString().split(('T'))[0]}>{updatedDate.toDateString()}</time>
             </div>
           )
         }
         <p>{description}</p>
       </div>
+
       <div class="py-5">
         {
           heroImage ? (
@@ -50,9 +63,26 @@ const { Content } = await entry.render()
           )
         }
       </div>
+
       <div class="pl-10 pr-4">
         <Content />
       </div>
-    </div>
+
+      <script 
+        src="https://giscus.app/client.js"
+        data-repo="patheticGeek/blog"
+        data-repo-id="R_kgDOLEsztQ"
+        data-category="Blog"
+        data-category-id="DIC_kwDOLEsztc4Ccac3"
+        data-mapping="pathname"
+        data-strict="1"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="dark"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+      </script>
   </article>
 </PageLayout>

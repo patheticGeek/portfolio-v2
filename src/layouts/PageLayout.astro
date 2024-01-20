@@ -1,21 +1,26 @@
 ---
-import BaseHead from 'src/components/BaseHead.astro'
+import BaseHead, {Props as BaseHeadProps} from 'src/components/BaseHead.astro'
 import Header from 'src/components/Header.astro'
+import {ViewTransitions} from 'astro:transitions';
+import { SITE_TITLE } from 'src/config';
 
 type Props = {
-  title: string
-  description: string
-  banner?: string
+  head: BaseHeadProps
   class?: string
+  showFooter?: boolean
 }
 
-const { title, description, banner, class: className } = Astro.props
+const { head, class: className, showFooter = false } = Astro.props
 ---
 
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
-    <BaseHead title={title} description={description} banner={banner} />
+    <BaseHead {...head}>
+      <slot name="pre-head" slot="pre-head" />
+      <slot name="head" />
+    </BaseHead>
+    <ViewTransitions />
   </head>
   <body>
     <Header />
@@ -23,5 +28,11 @@ const { title, description, banner, class: className } = Astro.props
     <main class={className}>
       <slot />
     </main>
+
+    {showFooter && <footer class="border-t border-zinc-700 flex py-1">
+      <div class="w-full max-w-3xl mx-auto text-center text-sm">
+        <p>{SITE_TITLE}</p>
+      </div>
+    </footer>}
   </body>
 </html>
