@@ -18,6 +18,7 @@
     "@types/node": "^20.11.5",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
+    "@types/sharp": "0.30.4",
     "@typescript-eslint/parser": "^5.62.0",
     "astro": "^3.1.0",
     "eslint": "^8.49.0",
@@ -47,8 +48,14 @@
   },
   "pnpm": {
     "supportedArchitectures": {
-      "os": ["linux", "current"],
-      "cpu": ["x64", "arm64"]
+      "os": [
+        "linux",
+        "current"
+      ],
+      "cpu": [
+        "x64",
+        "arm64"
+      ]
     }
   }
 }

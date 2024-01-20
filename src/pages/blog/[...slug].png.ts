@@ -5,7 +5,7 @@ import * as fs from 'fs/promises';
 import { getEntryBySlug } from "astro:content";
 import { BLOG } from "src/config";
 import { ReactNode } from "react";
-import * as sharp from "sharp";
+import Sharp from "sharp";
 
 const url = new URL('../../../public/fira-code-latin-500-normal.woff', import.meta.url);
 const fonts = [fs.readFile(url)]
@@ -50,7 +50,7 @@ export const GET: APIRoute = async ({ params: { slug } }) => {
     ],
   });
 
-  const png = sharp(Buffer.from(svg)).png()
+  const png = new Sharp(Buffer.from(svg)).png()
   const resp = await png.toBuffer()
 
   return new Response(resp, {
