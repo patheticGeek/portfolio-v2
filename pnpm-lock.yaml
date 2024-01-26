@@ -11,6 +11,9 @@ dependencies:
   '@astrojs/rss':
     specifier: ^3.0.0
     version: 3.0.0
+  '@fontsource/fira-code':
+    specifier: ^5.0.16
+    version: 5.0.16
   '@octokit/rest':
     specifier: ^19.0.13
     version: 19.0.13
@@ -906,6 +909,10 @@ packages:
     resolution: {integrity: sha512-1S8uAY/MTJqVx0SC4epBq+N2yhuwtNwLbJYNZyhL2pO1ZVKn5HFXav5T41Ryzy9K9V7ZId2JB2oy/W4aCd9/2w==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
+
+  /@fontsource/fira-code@5.0.16:
+    resolution: {integrity: sha512-mOAs/sgZz+ETOB4foFnOnbewQDJpByvR4h/pLmgkWVn/gbA8Tlb4wUSWK4QFc+SKmHaDJsT/wgWjDUcxssZn7w==}
+    dev: false
 
   /@humanwhocodes/config-array@0.11.11:
     resolution: {integrity: sha512-N2brEuAadi0CcdeMXUkhbZB84eskAc8MEX1By6qEchoVywSgXPIjou4rYsl0V3Hj0ZnuGycGCjdNgockbzeWNA==}
