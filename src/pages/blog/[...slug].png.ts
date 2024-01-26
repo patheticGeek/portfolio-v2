@@ -7,7 +7,7 @@ import { BLOG } from "src/config";
 import { ReactNode } from "react";
 import Sharp from "sharp";
 
-const url = new URL('../../../public/fira-code-latin-500-normal.woff', import.meta.url);
+const url = new URL('../../assets/fira-code-latin-500-normal.woff', import.meta.url);
 const fonts = [fs.readFile(url)]
 
 export const GET: APIRoute = async ({ params: { slug } }) => {

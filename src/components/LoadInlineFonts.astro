@@ -1,19 +1,5 @@
 ---
-import { readFile } from 'fs/promises'
-
-const fontsToLoad = {
-  firaCode300: '../../public/fira-code-latin-300-normal.woff',
-  firaCode500: '../../public/fira-code-latin-500-normal.woff',
-  firaCode700: '../../public/fira-code-latin-700-normal.woff'
-}
-
-const fileToBase64 = async (file: URL | string) => Buffer.from(await readFile(file)).toString('base64')
-
-const fontFilesPromises = await Promise.all(Object.entries(fontsToLoad).map(async ([key, file]) => {
-  return [key, await fileToBase64(new URL(file, import.meta.url))]
-}))
-
-const fontFiles = Object.fromEntries(fontFilesPromises)
+import fontFiles from 'src/lib/fonts'
 ---
 
 <style set:html={`

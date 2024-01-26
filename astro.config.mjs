@@ -7,7 +7,13 @@ import react from '@astrojs/react'
 // https://astro.build/config
 export default defineConfig({
   output: 'server',
-  adapter: vercel(),
+  adapter: vercel({
+    includeFiles: [
+      './src/assets/fira-code-latin-300-normal.woff',
+      './src/assets/fira-code-latin-500-normal.woff',
+      './src/assets/fira-code-latin-700-normal.woff'
+    ]
+  }),
   build: {
     inlineStylesheets: 'always'
   },
