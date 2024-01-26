@@ -1,6 +1,6 @@
 import { readFile } from 'fs/promises'
 
-const pathPrefix = import.meta.env.PROD ? '../../../../src/assets/' : '../../assets'
+const pathPrefix = import.meta.env.PROD ? '../../../src/assets' : '../../assets'
 
 const fontsToLoad = {
   firaCode300: readFile(new URL(`${pathPrefix}/fira-code-latin-300-normal.woff`, import.meta.url)),
