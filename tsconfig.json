@@ -10,7 +10,8 @@
     "types": ["vite/client"],
     "baseUrl": ".",
     "jsx": "react-jsx",
-    "jsxImportSource": "react"
+    "jsxImportSource": "react",
+    "skipLibCheck": true
   },
-  "include": ["./"],
+  "include": ["./"]
 }
