@@ -1,8 +1,8 @@
 /** @type {import("prettier").Config} */
 module.exports = {
   ...require('prettier-config-standard'),
+  jsxSingleQuote: false,
   tailwindConfig: './tailwind.config.cjs',
-  pluginSearchDirs: [__dirname],
   plugins: [
     require.resolve('prettier-plugin-astro'),
     require.resolve('prettier-plugin-tailwindcss')

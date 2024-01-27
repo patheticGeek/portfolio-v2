@@ -154,7 +154,8 @@ const Hooks = () => {
       <div className="h-screen"></div>
       <div
         ref={elementRef}
-        className={`py-6 text-center ${inView ? 'bg-blue-100' : 'bg-red-100'}`}>
+        className={`py-6 text-center ${inView ? 'bg-blue-100' : 'bg-red-100'}`}
+      >
         Is in view: {inView ? 'true' : 'false'}
       </div>
       <div className="h-screen"></div>

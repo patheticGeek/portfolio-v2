@@ -35,7 +35,8 @@ export default function DisplayBookmarks({
         {parentFolder && (
           <button
             onClick={() => setCurrentFolder(parentFolder)}
-            className="text-zinc-400 underline decoration-transparent underline-offset-4 transition hover:text-white hover:decoration-slate-300">
+            className="text-zinc-400 underline decoration-transparent underline-offset-4 transition hover:text-white hover:decoration-slate-300"
+          >
             {'<-'}
           </button>
         )}{' '}
@@ -49,7 +50,8 @@ export default function DisplayBookmarks({
               className="text-zinc-400 underline decoration-transparent underline-offset-4 transition hover:text-white hover:decoration-slate-300"
               onClick={() => {
                 setCurrentFolder(folder.id)
-              }}>
+              }}
+            >
               {folder.name}
             </button>
           </li>

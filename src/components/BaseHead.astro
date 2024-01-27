@@ -6,13 +6,29 @@ export interface Props {
   title: string
   ogTitle?: string
   description: string
-  image?: {src: string, width: number, height: number, size: 'small' | 'large'}
+  image?: {
+    src: string
+    width: number
+    height: number
+    size: 'small' | 'large'
+  }
   canonical?: string
 }
 
-const fallbackImage = { src: 'favicon.png', width: 128, height: 128, size: 'small' }
+const fallbackImage = {
+  src: 'favicon.png',
+  width: 128,
+  height: 128,
+  size: 'small'
+}
 
-const { title, ogTitle = title, description, image = fallbackImage, canonical: canonicalPath = Astro.url.pathname } = Astro.props
+const {
+  title,
+  ogTitle = title,
+  description,
+  image = fallbackImage,
+  canonical: canonicalPath = Astro.url.pathname
+} = Astro.props
 const canonical = new URL(canonicalPath, Astro.url.origin)
 ---
 
@@ -31,17 +47,34 @@ const canonical = new URL(canonicalPath, Astro.url.origin)
 <meta property="og:url" content={canonical} />
 <meta property="og:title" content={ogTitle} />
 <meta property="og:description" content={description} />
-{image && <Fragment>
-  <meta property="og:image" content={new URL(image.src, Astro.url.origin)} />
-  <meta property="og:image:width" content={image.width.toString()} />
-  <meta property="og:image:height" content={image.height.toString()} />
-</Fragment>}
+{
+  image && (
+    <Fragment>
+      <meta
+        property="og:image"
+        content={new URL(image.src, Astro.url.origin)}
+      />
+      <meta property="og:image:width" content={image.width.toString()} />
+      <meta property="og:image:height" content={image.height.toString()} />
+    </Fragment>
+  )
+}
 
-<meta property="twitter:card" content={image?.size === 'large' ? "summary_large_image" : "summary"} />
+<meta
+  property="twitter:card"
+  content={image?.size === 'large' ? 'summary_large_image' : 'summary'}
+/>
 <meta property="twitter:url" content={canonical} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
-{image && <meta property="twitter:image" content={new URL(image.src, Astro.url.origin)} />}
+{
+  image && (
+    <meta
+      property="twitter:image"
+      content={new URL(image.src, Astro.url.origin)}
+    />
+  )
+}
 
 {import.meta.env.PROD && <script defer src="/_vercel/insights/script.js" />}
 

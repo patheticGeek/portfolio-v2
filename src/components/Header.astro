@@ -4,7 +4,8 @@ import { NAV_LINKS, SITE_TITLE } from 'src/config'
 
 <header class="flex items-center border-b border-zinc-700 px-3 py-3 md:text-sm">
   <div
-    class="mx-auto flex w-full max-w-3xl flex-col items-center space-y-2 md:flex-row md:space-y-0">
+    class="mx-auto flex w-full max-w-3xl flex-col items-center space-y-2 md:flex-row md:space-y-0"
+  >
     <a class="text-white md:ml-9" href="/">
       {SITE_TITLE}
     </a>
@@ -17,7 +18,8 @@ import { NAV_LINKS, SITE_TITLE } from 'src/config'
               'px-1',
               link.href === Astro.url.pathname && 'decoration-amber-200'
             ]}
-            href={link.href}>
+            href={link.href}
+          >
             {link.label}
           </a>
         ))

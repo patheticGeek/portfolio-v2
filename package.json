@@ -9,7 +9,16 @@
     "build": "prisma generate && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "lint": "prettier --write  \"**/*.{ts,tsx,md,mdx,astro}\" && eslint --fix \"src/**/*.{js,ts,jsx,tsx,astro}\""
+    "lint": "prettier --write  \"**/*.{js,jsx,ts,tsx,md,mdx,astro}\" && eslint --fix \"src/**/*.{js,ts,jsx,tsx,astro}\"",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx,md,mdx,astro}": [
+      "prettier --write"
+    ],
+    "**/*.{js,jsx,ts,tsx,astro}": [
+      "eslint --fix"
+    ]
   },
   "devDependencies": {
     "@astrojs/mdx": "^1.1.0",
@@ -24,10 +33,12 @@
     "eslint": "^8.49.0",
     "eslint-plugin-astro": "^0.23.0",
     "eslint-plugin-jsx-a11y": "^6.7.1",
-    "prettier": "^2.8.8",
-    "prettier-config-standard": "^5.0.0",
-    "prettier-plugin-astro": "^0.12.0",
-    "prettier-plugin-tailwindcss": "^0.2.8",
+    "husky": "^9.0.6",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.2.4",
+    "prettier-config-standard": "^7.0.0",
+    "prettier-plugin-astro": "^0.13.0",
+    "prettier-plugin-tailwindcss": "^0.5.11",
     "prisma": "^4.16.2",
     "typescript": "^4.9.5"
   },

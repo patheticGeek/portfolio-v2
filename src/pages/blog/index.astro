@@ -11,7 +11,7 @@ const posts = (await getCollection('blog', (entry) => !entry.data.draft)).sort(
 )
 ---
 
-<PageLayout head={{title, description: desc}} showFooter={true}>
+<PageLayout head={{ title, description: desc }} showFooter={true}>
   <h1>{title}</h1>
 
   <p>{desc}</p>
@@ -28,7 +28,10 @@ const posts = (await getCollection('blog', (entry) => !entry.data.draft)).sort(
             <a class="block w-full" href={`/blog/${post.slug}`}>
               {post.data.title}
             </a>
-            <time class="text-xs" datetime={post.data.pubDate.toISOString().split(('T'))[0]}>
+            <time
+              class="text-xs"
+              datetime={post.data.pubDate.toISOString().split('T')[0]}
+            >
               {new Date(post.data.pubDate).toLocaleDateString('en-us', {
                 year: 'numeric',
                 month: 'short',
