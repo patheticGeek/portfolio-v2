@@ -3,6 +3,7 @@ import { getEntryBySlug } from 'astro:content'
 import { Props as BaseHeadProps } from 'src/components/BaseHead.astro'
 import PageLayout from 'src/layouts/PageLayout.astro'
 import { BLOG } from 'src/config'
+import { formatDate } from 'src/lib/datetime'
 
 const { slug } = Astro.params
 
@@ -43,7 +44,7 @@ const head = {
 
       <div class="text-sm">
         <time itemprop="datePublished" datetime={pubDate.toISOString()}>
-          {pubDate.toDateString()}
+          {formatDate(pubDate)}
         </time>
       </div>
       {
@@ -51,7 +52,7 @@ const head = {
           <div class="text-sm">
             Updated on{' '}
             <time itemprop="dateModified" datetime={updatedDate.toISOString()}>
-              {updatedDate.toDateString()}
+              {formatDate(updatedDate)}
             </time>
           </div>
         )
