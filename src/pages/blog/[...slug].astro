@@ -40,14 +40,14 @@ const head = {
         <div class="text-sm">
           <time 
             itemprop="datePublished"
-            datetime={pubDate.toISOString().split(('T'))[0]}>
+            datetime={pubDate.toISOString()}>
             {pubDate.toDateString()}
           </time>
         </div>
         {
           updatedDate && (
             <div class="text-sm">
-              Updated on <time itemprop="dateModified" datetime={updatedDate.toISOString().split(('T'))[0]}>{updatedDate.toDateString()}</time>
+              Updated on <time itemprop="dateModified" datetime={updatedDate.toISOString()}>{updatedDate.toDateString()}</time>
             </div>
           )
         }
