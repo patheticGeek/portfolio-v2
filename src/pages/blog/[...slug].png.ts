@@ -62,7 +62,7 @@ export const GET: APIRoute = async ({ params: { slug } }) => {
     status: 200,
     headers: {
       'Content-Type': 'image/png',
-      'Cache-Control': 's-maxage=1, stale-while-revalidate=59'
+      'Cache-Control': 'public, maxage=0, s-maxage=86400'
     }
   })
 }
