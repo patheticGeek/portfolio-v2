@@ -2,6 +2,8 @@
 import { getEntryBySlug } from 'astro:content'
 import { Props as BaseHeadProps } from 'src/components/BaseHead.astro'
 import PageLayout from 'src/layouts/PageLayout.astro'
+import { BLOG } from 'src/config'
+import { formatDate } from 'src/lib/datetime'
 
 const { slug } = Astro.params
 
@@ -32,27 +34,36 @@ const head = {
     <meta name="giscus:backlink" content={pageLink} />
   </Fragment>
 
-  <article class="mx-auto w-full max-w-3xl space-y-3">
+  <article
+    class="mx-auto w-full max-w-3xl space-y-3"
+    itemscope
+    itemtype="https://schema.org/BlogPosting"
+  >
     <div class="space-y-1 pl-10 pr-4">
-      <h1>{title}</h1>
+      <h1 itemprop="headline">{title}</h1>
 
       <div class="text-sm">
-        <time datetime={pubDate.toISOString().split('T')[0]}
-          >{pubDate.toDateString()}</time
-        >
+        <time itemprop="datePublished" datetime={pubDate.toISOString()}>
+          {formatDate(pubDate)}
+        </time>
       </div>
       {
         updatedDate && (
           <div class="text-sm">
             Updated on{' '}
-            <time datetime={updatedDate.toISOString().split('T')[0]}>
-              {updatedDate.toDateString()}
+            <time itemprop="dateModified" datetime={updatedDate.toISOString()}>
+              {formatDate(updatedDate)}
             </time>
           </div>
         )
       }
-      <p>{description}</p>
+      {description && <p itemprop="description">{description}</p>}
     </div>
+
+    <meta
+      itemprop="image"
+      content={new URL(head.image.src, import.meta.env.SITE)}
+    />
 
     <div class="py-5">
       {
@@ -68,7 +79,7 @@ const head = {
       }
     </div>
 
-    <div class="pl-10 pr-4">
+    <div class="pl-10 pr-4" itemprop="articleBody">
       <Content />
     </div>
 
@@ -88,5 +99,13 @@ const head = {
       data-lang="en"
       crossorigin="anonymous"
       async></script>
+
+    <div class="hidden">
+      <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+        <a itemprop="url" href={BLOG.author.url}>
+          <span itemprop="name">{BLOG.author.name}</span>
+        </a>
+      </span>
+    </div>
   </article>
 </PageLayout>

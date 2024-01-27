@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content'
 import PageLayout from 'src/layouts/PageLayout.astro'
+import { formatDate } from 'src/lib/datetime'
 
 export const title = "Geek's Blog"
 const desc =
@@ -11,37 +12,40 @@ const posts = (await getCollection('blog', (entry) => !entry.data.draft)).sort(
 )
 ---
 
-<PageLayout head={{ title, description: desc }} showFooter={true}>
-  <h1>{title}</h1>
+<PageLayout
+  head={{ title, description: desc }}
+  showFooter={true}
+  itemscope
+  itemtype="https://schema.org/ItemList"
+>
+  <h1 itemprop="name">{title}</h1>
 
-  <p>{desc}</p>
+  <p itemprop="description">{desc}</p>
 
-  <ul class="my-4 space-y-4">
+  <ol class="arrow-list my-4 space-y-4">
     {
-      posts.map((post) => {
+      posts.map((post, idx) => {
         const words = post.data.description.split(' ')
         const ellipsis = words.length > 16 ? '...' : ''
         const desc = words.slice(0, 16).join(' ') + ellipsis
 
         return (
-          <li>
-            <a class="block w-full" href={`/blog/${post.slug}`}>
+          <li
+            itemprop="itemListElement"
+            itemscope
+            itemtype="https://schema.org/ListItem"
+          >
+            <meta itemprop="position" content={idx.toString()} />
+            <a class="block w-full" href={`/blog/${post.slug}`} itemprop="url">
               {post.data.title}
             </a>
-            <time
-              class="text-xs"
-              datetime={post.data.pubDate.toISOString().split('T')[0]}
-            >
-              {new Date(post.data.pubDate).toLocaleDateString('en-us', {
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric'
-              })}
+            <time class="text-xs" datetime={post.data.pubDate.toISOString()}>
+              {formatDate(post.data.pubDate)}
             </time>
             <p class="my-0 text-sm">{desc}</p>
           </li>
         )
       })
     }
-  </ul>
+  </ol>
 </PageLayout>

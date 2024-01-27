@@ -2,7 +2,7 @@ import { readFile } from 'fs/promises'
 
 const pathPrefix = import.meta.env.PROD ? '../../../src/assets' : '../assets'
 
-const fontsToLoad = {
+export const fontFilesPath = {
   firaCode300: readFile(
     new URL(`${pathPrefix}/fira-code-latin-300-normal.woff`, import.meta.url)
   ),
@@ -15,7 +15,7 @@ const fontsToLoad = {
 }
 
 const fontFilesPromises = await Promise.all(
-  Object.entries(fontsToLoad).map(async ([key, file]) => {
+  Object.entries(fontFilesPath).map(async ([key, file]) => {
     return [key, Buffer.from(await file).toString('base64')]
   })
 )

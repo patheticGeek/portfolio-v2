@@ -15,18 +15,11 @@ export interface Props {
   canonical?: string
 }
 
-const fallbackImage = {
-  src: 'favicon.png',
-  width: 128,
-  height: 128,
-  size: 'small'
-}
-
 const {
   title,
   ogTitle = title,
   description,
-  image = fallbackImage,
+  image,
   canonical: canonicalPath = Astro.url.pathname
 } = Astro.props
 const canonical = new URL(canonicalPath, Astro.url.origin)
@@ -36,7 +29,7 @@ const canonical = new URL(canonicalPath, Astro.url.origin)
 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="icon" type="image/png" href="/favicon.png" />
+<link rel="icon" type="image/ico" href="/favicon.ico" />
 
 <title>{title}</title>
 <meta name="title" content={ogTitle} />

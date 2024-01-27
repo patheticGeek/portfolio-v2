@@ -1,17 +1,11 @@
 import satori from 'satori'
 import { html } from 'satori-html'
 import type { APIRoute } from 'astro'
-import * as fs from 'fs/promises'
 import { getEntryBySlug } from 'astro:content'
 import { BLOG } from 'src/config'
 import { ReactNode } from 'react'
 import Sharp from 'sharp'
-
-const url = new URL(
-  '../../assets/fira-code-latin-500-normal.woff',
-  import.meta.url
-)
-const fonts = [fs.readFile(url)]
+import { fontFilesPath } from 'src/lib/fonts'
 
 export const GET: APIRoute = async ({ params: { slug } }) => {
   const entry = await getEntryBySlug('blog', slug || '')
@@ -41,14 +35,13 @@ export const GET: APIRoute = async ({ params: { slug } }) => {
     </div>
   `) as ReactNode
 
-  const [firaCode500] = await Promise.all(fonts)
   const svg = await satori(markup, {
     width: 1200,
     height: 630,
     fonts: [
       {
         name: 'Fira Code',
-        data: firaCode500,
+        data: await fontFilesPath.firaCode500,
         weight: 500,
         style: 'normal'
       }
@@ -62,7 +55,7 @@ export const GET: APIRoute = async ({ params: { slug } }) => {
     status: 200,
     headers: {
       'Content-Type': 'image/png',
-      'Cache-Control': 's-maxage=1, stale-while-revalidate=59'
+      'Cache-Control': 'public, maxage=0, s-maxage=86400'
     }
   })
 }
