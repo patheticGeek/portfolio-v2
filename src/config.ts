@@ -25,6 +25,7 @@ export const NAV_LINKS = [
 
 export const BLOG = {
   author: {
-    name: 'Pathetic Geek'
+    name: 'Pathetic Geek',
+    url: import.meta.env.SITE
   }
 }

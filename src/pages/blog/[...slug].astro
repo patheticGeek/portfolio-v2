@@ -2,6 +2,7 @@
 import { getEntryBySlug } from 'astro:content'
 import { Props as BaseHeadProps } from 'src/components/BaseHead.astro'
 import PageLayout from 'src/layouts/PageLayout.astro'
+import { BLOG } from 'src/config'
 
 const { slug } = Astro.params
 
@@ -97,5 +98,13 @@ const head = {
       data-lang="en"
       crossorigin="anonymous"
       async></script>
+
+    <div class="hidden">
+      <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+        <a itemprop="url" href={BLOG.author.url}>
+          <span itemprop="name">{BLOG.author.name}</span>
+        </a>
+      </span>
+    </div>
   </article>
 </PageLayout>
