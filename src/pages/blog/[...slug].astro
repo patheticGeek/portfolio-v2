@@ -32,27 +32,36 @@ const head = {
     <meta name="giscus:backlink" content={pageLink} />
   </Fragment>
 
-  <article class="mx-auto w-full max-w-3xl space-y-3">
+  <article
+    class="mx-auto w-full max-w-3xl space-y-3"
+    itemscope
+    itemtype="https://schema.org/BlogPosting"
+  >
     <div class="space-y-1 pl-10 pr-4">
-      <h1>{title}</h1>
+      <h1 itemprop="headline">{title}</h1>
 
       <div class="text-sm">
-        <time datetime={pubDate.toISOString().split('T')[0]}
-          >{pubDate.toDateString()}</time
-        >
+        <time itemprop="datePublished" datetime={pubDate.toISOString()}>
+          {pubDate.toDateString()}
+        </time>
       </div>
       {
         updatedDate && (
           <div class="text-sm">
             Updated on{' '}
-            <time datetime={updatedDate.toISOString().split('T')[0]}>
+            <time itemprop="dateModified" datetime={updatedDate.toISOString()}>
               {updatedDate.toDateString()}
             </time>
           </div>
         )
       }
-      <p>{description}</p>
+      {description && <p itemprop="description">{description}</p>}
     </div>
+
+    <meta
+      itemprop="image"
+      content={new URL(head.image.src, import.meta.env.SITE)}
+    />
 
     <div class="py-5">
       {
@@ -68,7 +77,7 @@ const head = {
       }
     </div>
 
-    <div class="pl-10 pr-4">
+    <div class="pl-10 pr-4" itemprop="articleBody">
       <Content />
     </div>
 
