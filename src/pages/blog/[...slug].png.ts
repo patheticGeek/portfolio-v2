@@ -41,7 +41,7 @@ export const GET: APIRoute = async ({ params: { slug } }) => {
     fonts: [
       {
         name: 'Fira Code',
-        data: await fontFilesPath.firaCode300,
+        data: await fontFilesPath.firaCode500,
         weight: 500,
         style: 'normal'
       }
