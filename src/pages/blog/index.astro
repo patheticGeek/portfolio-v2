@@ -22,9 +22,9 @@ const posts = (await getCollection('blog', (entry) => !entry.data.draft)).sort(
 
   <p itemprop="description">{desc}</p>
 
-  <ul class="my-4 space-y-4">
+  <ol class="arrow-list my-4 space-y-4">
     {
-      posts.map((post) => {
+      posts.map((post, idx) => {
         const words = post.data.description.split(' ')
         const ellipsis = words.length > 16 ? '...' : ''
         const desc = words.slice(0, 16).join(' ') + ellipsis
@@ -33,28 +33,19 @@ const posts = (await getCollection('blog', (entry) => !entry.data.draft)).sort(
           <li
             itemprop="itemListElement"
             itemscope
-            itemtype="https://schema.org/Article"
+            itemtype="https://schema.org/ListItem"
           >
-            <a
-              class="block w-full"
-              href={`/blog/${post.slug}`}
-              itemprop="heading url"
-            >
+            <meta itemprop="position" content={idx.toString()} />
+            <a class="block w-full" href={`/blog/${post.slug}`} itemprop="url">
               {post.data.title}
             </a>
-            <time
-              itemprop="datePublished"
-              class="text-xs"
-              datetime={post.data.pubDate.toISOString()}
-            >
+            <time class="text-xs" datetime={post.data.pubDate.toISOString()}>
               {formatDate(post.data.pubDate)}
             </time>
-            <p itemprop="description" class="my-0 text-sm">
-              {desc}
-            </p>
+            <p class="my-0 text-sm">{desc}</p>
           </li>
         )
       })
     }
-  </ul>
+  </ol>
 </PageLayout>

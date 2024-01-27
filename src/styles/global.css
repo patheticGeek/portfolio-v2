@@ -11,7 +11,7 @@
   }
 
   main {
-    @apply mx-auto my-5 w-full max-w-3xl pl-10 pr-4 flex-1;
+    @apply mx-auto my-5 w-full max-w-3xl flex-1 pl-10 pr-4;
   }
 
   a {
@@ -19,7 +19,7 @@
   }
 
   .before-style {
-    @apply absolute top-0 left-0 -translate-x-full px-1 font-medium text-slate-600;
+    @apply absolute left-0 top-0 -translate-x-full px-1 font-medium text-slate-600;
   }
 
   h1,
@@ -32,13 +32,13 @@
   }
 
   article h1 {
-    @apply mt-6 mb-3 text-3xl font-bold;
+    @apply mb-3 mt-6 text-3xl font-bold;
   }
   article h2 {
-    @apply mt-8 mb-3 text-2xl font-semibold;
+    @apply mb-3 mt-8 text-2xl font-semibold;
   }
   article :is(h3, h4, h5, h6) {
-    @apply mt-6 mb-3 text-lg;
+    @apply mb-3 mt-6 text-lg;
   }
   article p {
     @apply my-3;
@@ -90,6 +90,14 @@
   ol > li::marker {
     @apply before-style;
   }
+  ol.arrow-list > li::marker {
+    display: none;
+    content: '';
+  }
+  ol.arrow-list > li::before {
+    content: '=>';
+    @apply before-style;
+  }
 
   code {
     @apply mx-0.5 font-normal;
@@ -99,7 +107,7 @@
     content: '`';
   }
   pre {
-    @apply whitespace-pre-wrap rounded py-2 px-3 text-sm;
+    @apply whitespace-pre-wrap rounded px-3 py-2 text-sm;
   }
   pre code::before,
   pre code::after {
