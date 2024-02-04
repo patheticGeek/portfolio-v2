@@ -10,7 +10,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "lint": "prettier --write  \"**/*.{js,jsx,ts,tsx,md,mdx,astro}\" && eslint --fix \"src/**/*.{js,ts,jsx,tsx,astro}\"",
-    "prepare": "husky"
+    "prepare": "husky",
+    "bookmark-sync": "node ./bookmark_sync.js"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx,md,mdx,astro}": [
@@ -45,10 +46,10 @@
   "dependencies": {
     "@astrojs/react": "^3.0.2",
     "@astrojs/rss": "^3.0.0",
-    "@fontsource/fira-code": "^5.0.16",
     "@octokit/rest": "^19.0.13",
     "@prisma/client": "^4.16.2",
     "clsx": "^1.2.1",
+    "jsdom": "^24.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "satori": "^0.10.11",

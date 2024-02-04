@@ -1,5 +1,5 @@
 import { Bookmarks, Folders } from '@prisma/client'
-import { useMemo } from 'react'
+import { Fragment, useMemo } from 'react'
 import { useState } from 'react'
 
 type Props = {
@@ -24,23 +24,35 @@ export default function DisplayBookmarks({
     return { folders: foldersHere, bookmarks }
   }, [currentFolder])
 
-  const parentFolder =
-    folders[currentFolder].name !== 'Bookmarks bar'
-      ? folders[currentFolder].parentId
-      : undefined
+  const parentFolder = folders[currentFolder].parentId
+
+  const breadcrumbs = useMemo(() => {
+    const breadcrumbs = []
+    let current: string | null = parentFolder
+    while (current) {
+      breadcrumbs.push(current)
+      current = folders[current].parentId
+    }
+    return breadcrumbs.reverse()
+  }, [parentFolder])
 
   return (
     <>
       <h3>
-        {parentFolder && (
-          <button
-            onClick={() => setCurrentFolder(parentFolder)}
-            className="text-zinc-400 underline decoration-transparent underline-offset-4 transition hover:text-white hover:decoration-slate-300"
-          >
-            {'<-'}
-          </button>
-        )}{' '}
-        {folders[currentFolder].name}
+        {breadcrumbs.length
+          ? breadcrumbs.map((breadcrumb) => (
+              <Fragment key={breadcrumb}>
+                <button
+                  onClick={() => setCurrentFolder(breadcrumb)}
+                  className="text-zinc-400 underline decoration-transparent underline-offset-4 transition hover:text-white hover:decoration-slate-300"
+                >
+                  {folders[breadcrumb].name}
+                </button>
+                <span>{' > '}</span>
+              </Fragment>
+            ))
+          : undefined}
+        <span>{folders[currentFolder].name}</span>
       </h3>
 
       <ul>

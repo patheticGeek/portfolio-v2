@@ -42,7 +42,7 @@ folders.forEach((item) => {
     else foldersByParent[item.parentId] = [item.id]
   }
 
-  if (item.name === 'Bookmarks bar') initialFolder = item.id
+  if (item.level === 0) initialFolder = item.id
 })
 ---
 

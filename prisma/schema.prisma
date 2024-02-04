@@ -14,7 +14,7 @@ model Bookmarks {
   name      String   @db.Text
   url       String   @db.LongText
 
-  folder   Folders? @relation(fields: [folderId], references: [id])
+  folder   Folders? @relation(fields: [folderId], references: [id], onDelete: Cascade, onUpdate: NoAction)
   folderId String?
 
   @@index([folderId])
