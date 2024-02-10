@@ -9,16 +9,14 @@
     "build": "prisma generate && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "lint": "prettier --write  \"**/*.{js,jsx,ts,tsx,md,mdx,astro}\" && eslint --fix \"src/**/*.{js,ts,jsx,tsx,astro}\"",
+    "lint": "prettier --check  \"**/*.{js,jsx,ts,tsx,md,mdx,astro}\" && eslint \"src/**/*.{js,ts,jsx,tsx,astro}\"",
+    "lint:fix": "prettier --write  \"**/*.{js,jsx,ts,tsx,md,mdx,astro}\" && eslint --fix \"src/**/*.{js,ts,jsx,tsx,astro}\"",
     "prepare": "husky",
     "bookmark-sync": "node ./bookmark_sync.js"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx,md,mdx,astro}": [
-      "prettier --write"
-    ],
-    "**/*.{js,jsx,ts,tsx,astro}": [
-      "eslint --fix"
+      "pnpm lint"
     ]
   },
   "devDependencies": {
@@ -58,6 +56,10 @@
     "tailwindcss": "^3.3.3",
     "web-vitals": "^3.4.0",
     "zod": "^3.22.2"
+  },
+  "packageManager": "pnpm@8.12.1",
+  "engines": {
+    "node": "^18.17.1"
   },
   "pnpm": {
     "supportedArchitectures": {
