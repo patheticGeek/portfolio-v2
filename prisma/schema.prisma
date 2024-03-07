@@ -1,7 +1,6 @@
 datasource db {
-  provider     = "mysql"
-  url          = env("DATABASE_URL")
-  relationMode = "prisma"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
@@ -12,9 +11,9 @@ model Bookmarks {
   id        String   @id
   createdAt DateTime
   name      String   @db.Text
-  url       String   @db.LongText
+  url       String   @db.VarChar()
 
-  folder   Folders? @relation(fields: [folderId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  folder   Folders? @relation(fields: [folderId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   folderId String?
 
   @@index([folderId])
