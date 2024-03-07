@@ -11,8 +11,9 @@
     "astro": "astro",
     "lint": "prettier --check  \"**/*.{js,jsx,ts,tsx,md,mdx,astro}\" && eslint \"src/**/*.{js,ts,jsx,tsx,astro}\"",
     "lint:fix": "prettier --write  \"**/*.{js,jsx,ts,tsx,md,mdx,astro}\" && eslint --fix \"src/**/*.{js,ts,jsx,tsx,astro}\"",
-    "prepare": "husky",
-    "bookmark-sync": "node ./bookmark_sync.js"
+    "prepare": "pnpm prisma generate && husky",
+    "bookmark-sync": "node ./bookmark_sync.js",
+    "clean": "rm -r node_modules .astro dist .vercel"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx,md,mdx,astro}": [
