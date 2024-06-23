@@ -1,6 +1,7 @@
 ---
-import LoadInlineFonts from './LoadInlineFonts.astro'
+import SpeedInsights from '@vercel/speed-insights/astro'
 import 'src/styles/global.css'
+import LoadInlineFonts from './LoadInlineFonts.astro'
 
 export interface Props {
   title: string
@@ -69,22 +70,8 @@ const canonical = new URL(canonicalPath, Astro.url.origin)
   )
 }
 
-{import.meta.env.PROD && <script defer src="/_vercel/insights/script.js" />}
-
-<script>
-  import { webVitals } from 'src/lib/vitals'
-
-  const analyticsId = import.meta.env.PUBLIC_VERCEL_ANALYTICS_ID
-
-  if (analyticsId) {
-    webVitals({
-      path: window.location.pathname,
-      analyticsId,
-      debug: import.meta.env.DEV,
-      params: {}
-    })
-  }
-</script>
+<!-- @ts-ignore -->
+{import.meta.env.PROD && <SpeedInsights />}
 
 <LoadInlineFonts />
 
