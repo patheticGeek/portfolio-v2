@@ -37,15 +37,17 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   try {
-    await prisma.folders.createMany({
-      data: result.data.folders
-    })
-    await prisma.bookmarks.createMany({
-      data: result.data.bookmarks.map((val) => ({
-        ...val,
-        createdAt: new Date(val.createdAt)
-      }))
-    })
+    await prisma.$transaction([
+      prisma.bookmarks.deleteMany({}),
+      prisma.folders.deleteMany({}),
+      prisma.folders.createMany({ data: result.data.folders }),
+      prisma.bookmarks.createMany({
+        data: result.data.bookmarks.map((val) => ({
+          ...val,
+          createdAt: new Date(val.createdAt)
+        }))
+      })
+    ])
   } catch (error) {
     console.error(error)
     return new Response(JSON.stringify({ success: false }))

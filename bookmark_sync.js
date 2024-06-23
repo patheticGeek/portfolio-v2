@@ -104,7 +104,7 @@ console.log(`Calling api...`)
 const response = await fetch(`http://localhost:4321/api/bookmark`, {
   method: 'POST',
   headers: {
-    'x-api-key': 'abcdef'
+    'x-api-key': process.env.BOOKMARKS_API_KEY
   },
   body: JSON.stringify({ folders, bookmarks })
 })
