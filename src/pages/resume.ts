@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro'
+import { RESUME_LINK } from 'src/config'
 
 export const get: APIRoute = async function get({ redirect }) {
-  return redirect('/ShivamNagiResume.pdf', 301)
+  return redirect(RESUME_LINK, 301)
 }

@@ -5,6 +5,8 @@ export const SITE_DESCRIPTION =
 export const GITHUB_USERNAME = 'patheticGeek'
 export const GITHUB_TOPIC = 'in-portfolio'
 
+export const RESUME_LINK = `https://drive.google.com/file/d/120Y_SVPzMExMGXcKa72YfEuSfi8MgNjP/view?usp=sharing`
+
 export const HOME_LINKS = [
   { label: '📨 Email', href: 'mailto:shivamnagi14@gmail.com' },
   { label: '🧑‍💻 Github', href: 'https://github.com/patheticGeek' },
