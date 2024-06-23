@@ -1,0 +1,20 @@
+---
+import PageLayout from 'src/layouts/PageLayout.astro'
+
+const title = '500 - Panik'
+const desc = "Something went wrong on the server just like my life :')"
+---
+
+<PageLayout head={{ title, description: desc }}>
+  <h1>{title}</h1>
+
+  <p>
+    {desc}
+  </p>
+  <img
+    src="https://cdn3.emoji.gg/stickers/9261-panik.png"
+    width="128px"
+    height="128px"
+    alt="Panik"
+  />
+</PageLayout>
