@@ -1,11 +1,9 @@
 ---
-import prisma from 'src/lib/prisma'
-import DisplayBookmarks from 'src/components/DisplayBookmarks'
 import { Bookmarks, Folders } from '@prisma/client'
-import { setCache } from 'src/lib/cache'
+import DisplayBookmarks from 'src/components/DisplayBookmarks'
 import PageLayout from 'src/layouts/PageLayout.astro'
-
-setCache(Astro.response, 1 * 60 * 60)
+import { setCache } from 'src/lib/cache'
+import prisma from 'src/lib/prisma'
 
 const title = "Geek's Resources"
 const desc = "Treasure's I've hunted over the years."
@@ -44,6 +42,8 @@ folders.forEach((item) => {
 
   if (item.level === 0) initialFolder = item.id
 })
+
+setCache(Astro.response, 1 * 60 * 60)
 ---
 
 <PageLayout head={{ title, description: desc }}>

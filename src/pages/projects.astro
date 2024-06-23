@@ -1,12 +1,15 @@
 ---
-import { getProjects } from 'src/lib/github'
 import { GITHUB_USERNAME } from 'src/config'
 import PageLayout from 'src/layouts/PageLayout.astro'
+import { setCache } from 'src/lib/cache'
+import { getProjects } from 'src/lib/github'
 
 const title = "Geek's Projects"
 const desc = "Here are some of the things I've somehow made work."
 
 const projects = await getProjects()
+
+setCache(Astro.response, 1 * 60 * 60)
 ---
 
 <PageLayout head={{ title, description: desc }} showFooter>

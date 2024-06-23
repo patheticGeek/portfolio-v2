@@ -1,9 +1,12 @@
 ---
+import { HOME_LINKS, SITE_DESCRIPTION, SITE_TITLE } from 'src/config'
 import PageLayout from 'src/layouts/PageLayout.astro'
-import { SITE_TITLE, SITE_DESCRIPTION, HOME_LINKS } from 'src/config'
+import { setCache } from 'src/lib/cache'
 import { getPinnedProjects } from 'src/lib/github'
 
 const pinnedProjects = await getPinnedProjects(5)
+
+setCache(Astro.response, 1 * 60 * 60)
 ---
 
 <PageLayout
