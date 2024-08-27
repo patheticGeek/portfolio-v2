@@ -1,11 +1,11 @@
 export const SITE_TITLE = 'Pathetic Geek'
-export const SITE_DESCRIPTION =
-  'A full-stack developer working on MERN stack with experience building web-based video editor, ed-tech platforms, and more from scratch.'
+export const SITE_DESCRIPTION = 'A full-stack developer and a DJ.'
 
 export const GITHUB_USERNAME = 'patheticGeek'
 export const GITHUB_TOPIC = 'in-portfolio'
 
 export const RESUME_LINK = `https://drive.google.com/file/d/120Y_SVPzMExMGXcKa72YfEuSfi8MgNjP/view?usp=sharing`
+export const EPK_LINK = `https://drive.google.com/file/d/1_PW7L80pMFowZryzxkFz2_OGDVhZDFr_/view?usp=sharing`
 
 export const HOME_LINKS = [
   { label: '📨 Email', href: 'mailto:shivamnagi14@gmail.com' },
@@ -20,6 +20,7 @@ export const HOME_LINKS = [
 
 export const NAV_LINKS = [
   { label: 'Home', href: '/' },
+  { label: 'Music', href: '/music' },
   { label: 'Resources', href: '/resources' },
   { label: 'Projects', href: '/projects' },
   { label: 'Blog', href: '/blog' }
