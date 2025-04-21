@@ -1,5 +1,15 @@
 import ms from 'ms'
-import { FormEvent, useCallback, useEffect, useState } from 'react'
+import {
+  FormEvent,
+  Fragment,
+  MouseEventHandler,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from 'react'
+import { getRandoms } from './utils'
 
 const useQuery = () => {
   const [data, setData] = useState<any>(undefined)
@@ -38,7 +48,48 @@ const LoadingDots = ({ count = 3, interval = 500 }) => {
   return <span>{new Array(current).fill('.').join('')}</span>
 }
 
+const useHydrated = () => {
+  const [hydrated, setHydrated] = useState(false)
+  useEffect(() => setHydrated(true), [])
+  return hydrated
+}
+
+const EXAMPLE_QUERIES = [
+  'react interview practice',
+  'resume building websites',
+  'job portals',
+  'interview dsa prep',
+  'design systems',
+  'icon packs',
+  'react design libraries',
+  'ui/ux practice',
+  'svg tools',
+  'color picker tools'
+]
+
+const TryOutExamples = ({ onSelect }: { onSelect: MouseEventHandler }) => {
+  const hydrated = useHydrated()
+  const randoms = useMemo(() => getRandoms(EXAMPLE_QUERIES.length), [])
+  if (!hydrated) return false
+
+  return (
+    <p>
+      Or, try out one of these{' '}
+      {randoms.map((qIdx, idx) => (
+        <Fragment key={idx}>
+          <a href="#" onClick={onSelect}>
+            {EXAMPLE_QUERIES[qIdx]}
+          </a>
+          {idx < randoms.length - 1 && <span>, </span>}
+        </Fragment>
+      ))}
+    </p>
+  )
+}
+
 const ResourcesQuery = () => {
+  const formRef = useRef<HTMLFormElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
   const { data, error, loading, query } = useQuery()
 
   const onSubmit = useCallback(
@@ -54,11 +105,20 @@ const ResourcesQuery = () => {
     [loading, query]
   )
 
+  const onSelect = useCallback((event: MouseEvent) => {
+    event.preventDefault()
+    if (inputRef.current) {
+      inputRef.current.value = (event.currentTarget as HTMLElement).innerText
+      formRef.current?.requestSubmit()
+    }
+  }, [])
+
   return (
     <>
-      <form onSubmit={onSubmit} className="my-4">
+      <form ref={formRef} onSubmit={onSubmit} className="my-4">
         <div className="query query-input">
           <input
+            ref={inputRef}
             id="query"
             name="query"
             placeholder="What are you lookin for today?"
@@ -88,7 +148,9 @@ const ResourcesQuery = () => {
             Responded in {ms(data.timeTaken)}
           </p>
         </>
-      ) : null}
+      ) : (
+        <TryOutExamples onSelect={onSelect} />
+      )}
     </>
   )
 }
