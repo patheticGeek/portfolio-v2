@@ -6,6 +6,9 @@ import {
 } from '@google/genai'
 import { Index } from '@upstash/vector'
 import { APIRoute } from 'astro'
+import rehypeStringify from 'rehype-stringify'
+import { remark } from 'remark'
+import remarkRehype from 'remark-rehype'
 import { z } from 'zod'
 
 const queryFunctionDeclaration = {
@@ -114,9 +117,16 @@ export const POST: APIRoute = async ({ request }) => {
       }
     }
 
+    const renderedMarkdown = (
+      await remark()
+        .use(remarkRehype)
+        .use(rehypeStringify)
+        .process(response!.text as string)
+    ).value
+
     return new Response(
       JSON.stringify({
-        response: response!.text as string,
+        response: renderedMarkdown,
         timeTaken: performance.now() - start
       })
     )
