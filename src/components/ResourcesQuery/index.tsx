@@ -38,14 +38,7 @@ const LoadingDots = ({ count = 3, interval = 500 }) => {
   return <span>{new Array(current).fill('.').join('')}</span>
 }
 
-const useHydrated = () => {
-  const [hydrated, setHydrated] = useState(false)
-  useEffect(() => setHydrated(true), [])
-  return hydrated
-}
-
 const ResourcesQuery = () => {
-  const hydrated = useHydrated()
   const { data, error, loading, query } = useQuery()
 
   const onSubmit = useCallback(
