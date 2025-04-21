@@ -64,34 +64,36 @@ const ResourcesQuery = () => {
   return (
     <>
       <form onSubmit={onSubmit} className="my-4">
-        <input
-          id="query"
-          name="query"
-          placeholder="What are you lookin for today?"
-          className="w-full rounded px-2 py-1 outline-none ring-1 ring-slate-700 transition invalid:ring-2 invalid:ring-slate-500 focus:ring-2 focus:ring-slate-200"
-          type="search"
-          required
-          disabled={loading}
-          autoFocus
-        />
+        <div className="query query-input">
+          <input
+            id="query"
+            name="query"
+            placeholder="What are you lookin for today?"
+            className="query w-full rounded px-2 py-1 outline-none transition focus:ring-2 focus:ring-slate-200"
+            type="search"
+            required
+            disabled={loading}
+            autoFocus
+          />
+        </div>
       </form>
 
       {loading ? (
-        <p className="query-loading">
+        <p className="query query-loading">
           Geek is thinking very hard
           <LoadingDots />
         </p>
       ) : error ? (
-        <p className="query-error">A server side error occurred</p>
+        <p className="query query-error">A server side error occurred</p>
       ) : data ? (
         <>
-          <p className="query-time text-xs">
-            Responded in {ms(data.timeTaken)}
-          </p>
           <p
-            className="query-response"
+            className="query query-response"
             dangerouslySetInnerHTML={{ __html: data.response }}
           />
+          <p className="query query-time text-xs">
+            Responded in {ms(data.timeTaken)}
+          </p>
         </>
       ) : null}
     </>
