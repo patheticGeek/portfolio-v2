@@ -85,13 +85,13 @@ const ResourcesQuery = () => {
         <p className="query-error">A server side error occurred</p>
       ) : data ? (
         <>
+          <p className="query-time text-xs">
+            Responded in {ms(data.timeTaken)}
+          </p>
           <p
             className="query-response"
             dangerouslySetInnerHTML={{ __html: data.response }}
           />
-          <p className="query-time text-xs">
-            Responded in {ms(data.timeTaken)}
-          </p>
         </>
       ) : null}
     </>
