@@ -124,6 +124,32 @@
   hr {
     @apply border-zinc-700;
   }
+
+  /** Styles for query page **/
+
+  .query {
+    position: relative;
+  }
+
+  .query-input::before {
+    content: '>';
+    @apply before-style text-lg;
+    top: 50%;
+    transform: translate(-100%, -50%);
+  }
+
+  .query-response::before {
+    content: '🌚';
+    @apply before-style;
+  }
+  .query-error::before {
+    content: '💀';
+    @apply before-style;
+  }
+  .query-loading::before {
+    content: '🤔';
+    @apply before-style;
+  }
 }
 
 @layer utilities {
