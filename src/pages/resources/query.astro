@@ -1,0 +1,16 @@
+---
+import ResourcesQuery from 'src/components/ResourcesQuery'
+import PageLayout from 'src/layouts/PageLayout.astro'
+
+const title = "Query Geek's Resources"
+const desc =
+  "Search with AI in Geek's resources to find something you're looking for without disturbing him"
+---
+
+<PageLayout head={{ title: title, description: desc }}>
+  <h1>{title}</h1>
+
+  <p>{desc}</p>
+
+  <ResourcesQuery client:load />
+</PageLayout>
