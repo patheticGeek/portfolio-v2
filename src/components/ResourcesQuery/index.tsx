@@ -9,31 +9,9 @@ import {
   useRef,
   useState
 } from 'react'
+import useHydrated from 'src/lib/hooks/useHydrated'
+import useQuery from 'src/lib/hooks/useQuery'
 import { getRandoms } from './utils'
-
-const useQuery = () => {
-  const [data, setData] = useState<any>(undefined)
-  const [error, setError] = useState(false)
-  const [loading, setLoading] = useState(false)
-
-  const query = useCallback(
-    async (input: RequestInfo | URL, init?: RequestInit) => {
-      setLoading(true)
-      try {
-        const result = await fetch(input, init)
-        setData(await result.json())
-        setError(false)
-      } catch (err) {
-        setError(true)
-      } finally {
-        setLoading(false)
-      }
-    },
-    []
-  )
-
-  return { data, error, loading, query }
-}
 
 const LoadingDots = ({ count = 3, interval = 500 }) => {
   const [current, setCurrent] = useState(0)
@@ -46,12 +24,6 @@ const LoadingDots = ({ count = 3, interval = 500 }) => {
   }, [count, interval])
 
   return <span>{new Array(current).fill('.').join('')}</span>
-}
-
-const useHydrated = () => {
-  const [hydrated, setHydrated] = useState(false)
-  useEffect(() => setHydrated(true), [])
-  return hydrated
 }
 
 const EXAMPLE_QUERIES = [
@@ -103,7 +75,7 @@ const ResourcesQuery = () => {
         body: JSON.stringify({ query: formData.get('query') })
       })
     },
-    [loading, query]
+    [query]
   )
 
   const onSelect: MouseEventHandler = useCallback((event) => {
@@ -154,7 +126,18 @@ const ResourcesQuery = () => {
           </p>
         </>
       ) : (
-        <TryOutExamples onSelect={onSelect} />
+        <>
+          <TryOutExamples onSelect={onSelect} />
+          <p>
+            Want to see how this works?{' '}
+            <a
+              href="https://github.com/patheticGeek/explore-llms"
+              target="_blank"
+            >
+              Checkout this repo
+            </a>
+          </p>
+        </>
       )}
     </>
   )
