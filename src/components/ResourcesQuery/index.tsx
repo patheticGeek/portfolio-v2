@@ -64,7 +64,8 @@ const EXAMPLE_QUERIES = [
   'react design libraries',
   'ui/ux practice',
   'svg tools',
-  'color picker tools'
+  'color picker tools',
+  'css resources'
 ]
 
 const TryOutExamples = ({ onSelect }: { onSelect: MouseEventHandler }) => {
@@ -105,7 +106,7 @@ const ResourcesQuery = () => {
     [loading, query]
   )
 
-  const onSelect = useCallback((event: MouseEvent) => {
+  const onSelect: MouseEventHandler = useCallback((event) => {
     event.preventDefault()
     if (inputRef.current) {
       inputRef.current.value = (event.currentTarget as HTMLElement).innerText
@@ -137,7 +138,11 @@ const ResourcesQuery = () => {
           <LoadingDots />
         </p>
       ) : error ? (
-        <p className="query query-error">A server side error occurred</p>
+        <p className="query query-error">
+          {data
+            ? data.response
+            : 'Network error occurred, please refresh and try again'}
+        </p>
       ) : data ? (
         <>
           <p

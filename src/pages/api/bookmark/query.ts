@@ -63,6 +63,8 @@ export const POST: APIRoute = async ({ request }) => {
   const start = performance.now()
 
   try {
+    console.log('query is', result.data.query)
+
     const ai = new GoogleGenAI({ apiKey: import.meta.env.GEMINI_API_KEY })
 
     const index = new Index({
@@ -85,7 +87,7 @@ export const POST: APIRoute = async ({ request }) => {
       })
 
       if (response.functionCalls?.length) {
-        console.log('Get function call in response', response.functionCalls)
+        console.log('function call in response', response.functionCalls)
         const responses = await Promise.all(
           response.functionCalls.map(async (functionCall) => {
             if (
@@ -113,6 +115,7 @@ export const POST: APIRoute = async ({ request }) => {
           })
         })
       } else {
+        console.log('text in response', response.text)
         haveAnswer = true
       }
     }
@@ -132,12 +135,17 @@ export const POST: APIRoute = async ({ request }) => {
     )
   } catch (err) {
     console.log('err:', err)
+    const isRateLimit = (err as Error)?.message?.includes?.(
+      '429 Too Many Requests'
+    )
     return new Response(
       JSON.stringify({
-        response: 'A server side error occurred',
+        response: isRateLimit
+          ? 'People before you have finished the limit for today :('
+          : 'A server side error occurred, notify me on text and i will ignore your message',
         timeTaken: performance.now() - start
       }),
-      { status: 500 }
+      { status: isRateLimit ? 429 : 500 }
     )
   }
 }
