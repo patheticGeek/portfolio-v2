@@ -1,6 +1,6 @@
 import rss, { pagesGlobToRssItems } from '@astrojs/rss'
 
-export const get = async () => {
+export const GET = async () => {
   return rss({
     title: `Geek's blog`,
     description: `Every sentence is just a remix of the dictionary, and here are my remixes`,
