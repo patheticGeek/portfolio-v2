@@ -1,5 +1,7 @@
 import {
   ContentListUnion,
+  FunctionDeclaration,
+  GenerateContentConfig,
   GenerateContentResponse,
   GoogleGenAI,
   Type
@@ -11,7 +13,7 @@ import { remark } from 'remark'
 import remarkRehype from 'remark-rehype'
 import { z } from 'zod'
 
-const queryFunctionDeclaration = {
+const queryFunctionDeclaration: FunctionDeclaration = {
   name: 'query_vector_db',
   description: 'Queries the vector db in which the bookmarks are stored.',
   parameters: {
@@ -30,7 +32,7 @@ const queryFunctionDeclaration = {
   }
 }
 
-const aiConfig = {
+const aiConfig: GenerateContentConfig = {
   tools: [{ functionDeclarations: [queryFunctionDeclaration] }]
 }
 
