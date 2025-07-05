@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets'
 import meDjing from 'src/assets/me_djing.jpg'
-import { EPK_LINK } from 'src/config'
+import { EPK_LINK, MUSIC_LINKS } from 'src/config'
 import PageLayout from 'src/layouts/PageLayout.astro'
 import { setCache } from 'src/lib/cache'
 
@@ -36,27 +36,28 @@ setCache(Astro.response, 1 * 60 * 60)
       From self-taught beginnings to formal training at Beatworx, he refined his
       craft under the mentorship of industry stalwarts like SevethSea, Shreyas,
       and Anejath. Pathetic Geek has performed in some of the top clubs
-      including Pangeo, White Lotus Club, Parka Restobar.
+      including Socials (Hebbal), Pangeo, White Lotus Super Club, Aloft (Echo
+      Longue Bar).
     </p>
     <p>
       Today, Pathetic Geek aims to sync hearts and steps on the dance floor,
       blending beats that resonate with every soul.
     </p>
     <p>
-      Checkout my <a href={EPK_LINK}>Press Kit</a> or <a
-        href="https://soundcloud.com/pathetic_geek">SoundCloud</a
-      >.
+      For more checkout my <a href={EPK_LINK}>Press Kit</a>.
     </p>
   </section>
 
   <section class="mb-6">
-    <h2>Listen to some of my sets on soundcloud</h2>
-    <iframe
-      width="100%"
-      height="300"
-      scrolling="no"
-      frameborder="no"
-      src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1869071189&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
-    ></iframe>
+    <h2>Listen to my sets on</h2>
+    <ul>
+      {
+        MUSIC_LINKS.map((link) => (
+          <li>
+            {link.platform}: <a href={link.href}>{link.username}</a>
+          </li>
+        ))
+      }
+    </ul>
   </section>
 </PageLayout>

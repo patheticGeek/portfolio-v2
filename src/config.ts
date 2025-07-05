@@ -7,6 +7,19 @@ export const GITHUB_TOPIC = 'in-portfolio'
 export const RESUME_LINK = `https://drive.google.com/file/d/120Y_SVPzMExMGXcKa72YfEuSfi8MgNjP/view?usp=sharing`
 export const EPK_LINK = `https://drive.google.com/file/d/1_PW7L80pMFowZryzxkFz2_OGDVhZDFr_/view?usp=sharing`
 
+export const MUSIC_LINKS = [
+  {
+    platform: 'YouTube',
+    username: '@geekpathetic',
+    href: 'https://www.youtube.com/playlist?list=PLtiLxOiZabnsteJW72uIXcBP5MQ96o2Js'
+  },
+  {
+    platform: 'SoundCloud',
+    username: ' @pathetic_geek',
+    href: 'https://soundcloud.com/pathetic_geek/tracks'
+  }
+]
+
 export const HOME_LINKS = [
   { label: '📨 Email', href: 'mailto:shivamnagi14@gmail.com' },
   { label: '🧑‍💻 Github', href: 'https://github.com/patheticGeek' },
