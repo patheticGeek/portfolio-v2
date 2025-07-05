@@ -11,7 +11,7 @@ export interface Props {
     src: string
     width: number
     height: number
-    size: 'small' | 'large'
+    size?: 'small' | 'large'
   }
   canonical?: string
 }
@@ -20,7 +20,7 @@ const {
   title,
   ogTitle = title,
   description,
-  image,
+  image = { src: '/favicon.png', width: 512, height: 512 },
   canonical: canonicalPath = Astro.url.pathname
 } = Astro.props
 const canonical = new URL(canonicalPath, Astro.url.origin)
