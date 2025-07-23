@@ -1,7 +1,7 @@
 ---
+import { ClientRouter } from 'astro:transitions'
 import BaseHead, { Props as BaseHeadProps } from 'src/components/BaseHead.astro'
 import Header from 'src/components/Header.astro'
-import { ViewTransitions } from 'astro:transitions'
 import { SITE_TITLE } from 'src/config'
 
 type Props = {
@@ -19,7 +19,7 @@ const { head, showFooter = false, ...mainProps } = Astro.props
       <slot name="pre-head" slot="pre-head" />
       <slot name="head" />
     </BaseHead>
-    <ViewTransitions />
+    <ClientRouter />
   </head>
   <body>
     <Header />
