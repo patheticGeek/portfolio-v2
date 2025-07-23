@@ -12,7 +12,8 @@ export default defineConfig({
       './src/assets/fira-code-latin-300-normal.woff',
       './src/assets/fira-code-latin-500-normal.woff',
       './src/assets/fira-code-latin-700-normal.woff'
-    ]
+    ],
+    webAnalytics: { enabled: true }
   }),
   build: {
     inlineStylesheets: 'always'
