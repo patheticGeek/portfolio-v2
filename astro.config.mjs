@@ -32,5 +32,8 @@ export default defineConfig({
     react(),
     mdx()
   ],
-  site: 'https://patheticgeek.dev/'
+  site: 'https://patheticgeek.dev/',
+  redirects: {
+    '/r': { destination: '/resume', status: 307 }
+  }
 })
