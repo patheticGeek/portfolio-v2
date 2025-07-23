@@ -1,8 +1,8 @@
-import { defineConfig } from 'astro/config'
 import mdx from '@astrojs/mdx'
+import react from '@astrojs/react'
 import tailwind from '@astrojs/tailwind'
 import vercel from '@astrojs/vercel/serverless'
-import react from '@astrojs/react'
+import { defineConfig } from 'astro/config'
 
 // https://astro.build/config
 export default defineConfig({
@@ -12,7 +12,8 @@ export default defineConfig({
       './src/assets/fira-code-latin-300-normal.woff',
       './src/assets/fira-code-latin-500-normal.woff',
       './src/assets/fira-code-latin-700-normal.woff'
-    ]
+    ],
+    webAnalytics: { enabled: true }
   }),
   build: {
     inlineStylesheets: 'always'

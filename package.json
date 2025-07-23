@@ -21,15 +21,15 @@
     ]
   },
   "devDependencies": {
-    "@astrojs/mdx": "^1.1.0",
-    "@astrojs/tailwind": "^5.0.0",
-    "@astrojs/vercel": "^5.0.0",
+    "@astrojs/mdx": "^4.3.1",
+    "@astrojs/tailwind": "^6.0.2",
+    "@astrojs/vercel": "^8.2.3",
     "@types/node": "^20.11.5",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
     "@types/sharp": "0.30.4",
     "@typescript-eslint/parser": "^5.62.0",
-    "astro": "^3.1.0",
+    "astro": "^5.12.2",
     "eslint": "^8.49.0",
     "eslint-plugin-astro": "^0.23.0",
     "eslint-plugin-jsx-a11y": "^6.7.1",
@@ -43,8 +43,8 @@
     "typescript": "^4.9.5"
   },
   "dependencies": {
-    "@astrojs/react": "^3.0.2",
-    "@astrojs/rss": "^3.0.0",
+    "@astrojs/react": "^4.3.0",
+    "@astrojs/rss": "^4.0.12",
     "@google/genai": "^0.9.0",
     "@octokit/rest": "^19.0.13",
     "@prisma/client": "^4.16.2",
@@ -62,12 +62,11 @@
     "satori-html": "^0.3.2",
     "sharp": "0.30.4",
     "tailwindcss": "^3.3.3",
-    "web-vitals": "^3.4.0",
     "zod": "^3.22.2"
   },
   "packageManager": "pnpm@8.12.1",
   "engines": {
-    "node": "^18.17.1"
+    "node": "^22.17.1"
   },
   "pnpm": {
     "supportedArchitectures": {
