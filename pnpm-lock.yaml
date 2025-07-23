@@ -62,9 +62,6 @@ dependencies:
   tailwindcss:
     specifier: ^3.3.3
     version: 3.3.3
-  web-vitals:
-    specifier: ^3.4.0
-    version: 3.4.0
   zod:
     specifier: ^3.22.2
     version: 3.22.2
@@ -535,7 +532,7 @@ packages:
     resolution: {integrity: sha512-++LApOtY0pEEz1zrd9vy1/zXVaVJJ/EbAF3u0fXIzPJEDtnITsBGbbK0EkM72amhl/R5b+5xx0Y/QhcVOpuulg==}
     requiresBuild: true
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.8.1
     dev: true
     optional: true
 
@@ -6997,10 +6994,6 @@ packages:
   /web-namespaces@2.0.1:
     resolution: {integrity: sha512-bKr1DkiNa2krS7qxNtdrtHAmzuYGFQLiQ13TsorsdT6ULTkPLKuu5+GsFpDlg6JFjUTwX2DyhMPG2be8uPrqsQ==}
     dev: true
-
-  /web-vitals@3.4.0:
-    resolution: {integrity: sha512-n9fZ5/bG1oeDkyxLWyep0eahrNcPDF6bFqoyispt7xkW0xhDzpUBTgyDKqWDi1twT0MgH4HvvqzpUyh0ZxZV4A==}
-    dev: false
 
   /webidl-conversions@3.0.1:
     resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}
