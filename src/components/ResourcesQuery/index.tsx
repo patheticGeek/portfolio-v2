@@ -11,7 +11,7 @@ import {
 } from 'react'
 import useHydrated from 'src/lib/hooks/useHydrated'
 import useQuery from 'src/lib/hooks/useQuery'
-import { getRandoms } from './utils'
+import { getRandoms } from './utils.js'
 
 const LoadingDots = ({ count = 3, interval = 500 }) => {
   const [current, setCurrent] = useState(0)
@@ -48,7 +48,7 @@ const TryOutExamples = ({ onSelect }: { onSelect: MouseEventHandler }) => {
   return (
     <p>
       Or, try out one of these{' '}
-      {randoms.map((qIdx, idx) => (
+      {randoms.map((qIdx: number, idx: number) => (
         <Fragment key={idx}>
           <a href="#" onClick={onSelect}>
             {EXAMPLE_QUERIES[qIdx]}
