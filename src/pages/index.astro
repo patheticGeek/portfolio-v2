@@ -11,7 +11,7 @@ setCache(Astro.response, 1 * 60 * 60)
 
 <PageLayout
   head={{ title: SITE_TITLE, description: SITE_DESCRIPTION }}
-  class="space-y-5"
+  class="space-y-6"
 >
   <section>
     <h1>Hey there, I'm <span class="text-amber-200">Geek</span> 👋</h1>
@@ -40,15 +40,15 @@ setCache(Astro.response, 1 * 60 * 60)
 
   {
     pinnedProjects && (
-      <section>
+      <section class="space-y-3">
         <h2>Pinned Projects</h2>
 
         <ul class="space-y-4">
           {pinnedProjects.map((project) => (
             <li class="space-y-1">
-              <div class="flex flex-col space-x-2 md:flex-row">
+              <div class="flex flex-col md:flex-row md:items-center md:space-x-2">
                 <a
-                  class="block font-medium text-white"
+                  class="mr-1 block whitespace-nowrap font-medium text-white"
                   href={project.website || project.github_url}
                   target="_blank"
                 >
@@ -57,22 +57,23 @@ setCache(Astro.response, 1 * 60 * 60)
 
                 <div class="no-scrollbar flex items-center space-x-2 overflow-scroll whitespace-nowrap">
                   {project.topics.map((topic) => (
-                    <div class="my-1 rounded-full bg-zinc-800 px-2 py-[1px] text-xs text-zinc-300">
+                    <div class="rounded-full bg-zinc-800 px-2 py-[1px] text-xs text-zinc-300">
                       {topic}
                     </div>
                   ))}
                 </div>
               </div>
+
               <p class="mx-0.5 text-sm text-zinc-200">{project.description}</p>
             </li>
           ))}
         </ul>
 
         <p>
-          Checkout more <a href="/projects">projects</a>,
-          <a href="/blog">blogs</a>
-          or find some new <a href="/resources">resources</a>. Or if you're
-          lazy, <a href="/resources/query">try AI search in my resources</a>!
+          Checkout more <a href="/projects">projects</a>,{' '}
+          <a href="/blog">blogs</a> or find some new{' '}
+          <a href="/resources">resources</a>. Or if you're lazy,{' '}
+          <a href="/resources/query">try AI search in my resources</a>!
         </p>
       </section>
     )

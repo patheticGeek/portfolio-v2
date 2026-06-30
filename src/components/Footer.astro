@@ -1,7 +1,13 @@
 ---
+import { SITE_TITLE } from 'src/config'
+
 const today = new Date()
 ---
 
-<footer class="my-5 text-center text-xs">
-  &copy; {today.getFullYear()} Pathetic Geek. All rights reserved.
+<footer class="flex border-t border-zinc-700 py-1 text-xs">
+  <div class="mx-auto w-full max-w-3xl text-center">
+    <p class="text-xs">
+      Artisanally coded | {SITE_TITLE}
+    </p>
+  </div>
 </footer>

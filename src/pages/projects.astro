@@ -12,7 +12,7 @@ const projects = await getProjects()
 setCache(Astro.response, 1 * 60 * 60)
 ---
 
-<PageLayout head={{ title, description: desc }} showFooter>
+<PageLayout head={{ title, description: desc }}>
   <h1>Projects</h1>
 
   <p>
@@ -24,19 +24,27 @@ setCache(Astro.response, 1 * 60 * 60)
     <a href="https://codepen.io/patheticgeek">CodePen</a>.
   </p>
 
-  <ul class="my-4 space-y-4">
+  <ul class="my-8 space-y-6">
     {
       projects.map((project) => (
         <li class="space-y-1">
-          <div class="flex items-end justify-between">
+          <div class="flex items-center gap-3">
             <a
-              class="block w-full font-medium text-white"
+              class="inline-block font-medium text-white"
               href={project.website || project.github_url}
               target="_blank"
             >
               {project.name}
             </a>
+            <small>
+              (
+              <a href={project.github_url} target="_blank">
+                Code &#8599;
+              </a>
+              )
+            </small>
           </div>
+
           <div class="no-scrollbar flex items-center space-x-2 overflow-scroll whitespace-nowrap">
             {project.topics.map((topic) => (
               <div class="my-1 rounded-full bg-zinc-800 px-2 py-[1px] text-xs text-zinc-300">

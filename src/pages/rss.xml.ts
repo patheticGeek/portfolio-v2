@@ -1,11 +1,21 @@
-import rss, { pagesGlobToRssItems } from '@astrojs/rss'
+import rss from '@astrojs/rss'
+import type { APIRoute } from 'astro'
+import { getCollection } from 'astro:content'
+import { desc, title } from './blog/index.astro'
 
-export const GET = async () => {
+export const GET: APIRoute = async () => {
+  const blog = (await getCollection('blog')).filter((item) => !item.data.draft)
+
   return rss({
-    title: `Geek's blog`,
-    description: `Every sentence is just a remix of the dictionary, and here are my remixes`,
+    title: title,
+    description: desc,
     site: import.meta.env.SITE,
-    items: await pagesGlobToRssItems(import.meta.glob('./blog/*.md*')),
+    items: blog.map((post) => ({
+      title: post.data.title,
+      pubDate: post.data.pubDate,
+      description: post.data.description,
+      link: `/blog/${post.id}`
+    })),
     customData: `<language>en-us</language>`,
     stylesheet: '/rss/styles.xsl'
   })
