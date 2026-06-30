@@ -1,0 +1,50 @@
+name: Verify
+
+on:
+  push:
+    branches: ['master']
+  pull_request:
+    branches: ['master']
+
+jobs:
+  verify:
+    name: Verify
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: 'package.json'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm i
+
+      - name: Run Typecheck
+        id: typecheck
+        run: pnpm typecheck
+        continue-on-error: true
+
+      - name: Run Lint
+        id: lint
+        run: pnpm lint
+        continue-on-error: true
+
+      - name: Report verify summary
+        if: always()
+        run: |
+          echo "Typecheck status: ${{ steps.typecheck.outcome }}"
+          echo "Lint status: ${{ steps.lint.outcome }}"
+          if [[ "${{ steps.typecheck.outcome }}" != "success" || "${{ steps.lint.outcome }}" != "success" ]]; then
+            echo "One or more checks failed"
+            exit 1
+          fi

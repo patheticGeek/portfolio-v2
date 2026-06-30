@@ -1,21 +1,21 @@
 ---
-import { getEntryBySlug } from 'astro:content'
+import { getEntry, render } from 'astro:content'
 import { Props as BaseHeadProps } from 'src/components/BaseHead.astro'
-import PageLayout from 'src/layouts/PageLayout.astro'
 import { BLOG } from 'src/config'
+import PageLayout from 'src/layouts/PageLayout.astro'
 import { formatDate } from 'src/lib/datetime'
 
 const { slug } = Astro.params
 
 if (!slug) return new Response(undefined, { status: 404 })
 
-const entry = await getEntryBySlug('blog', slug)
+const entry = await getEntry('blog', slug)
 
 if (!entry) return new Response(undefined, { status: 404 })
 
 const { title, description, pubDate, updatedDate, heroImage } = entry.data
 
-const { Content } = await entry.render()
+const { Content } = await render(entry)
 
 const pagePath = `/blog/${slug}`
 const pageLink = new URL(pagePath, import.meta.env.SITE)

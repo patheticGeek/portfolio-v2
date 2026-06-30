@@ -1,10 +1,10 @@
-import satori from 'satori'
-import { html } from 'satori-html'
 import type { APIRoute } from 'astro'
 import { getEntryBySlug } from 'astro:content'
-import { BLOG } from 'src/config'
 import { ReactNode } from 'react'
-import Sharp from 'sharp'
+import satori from 'satori'
+import { html } from 'satori-html'
+import sharp from 'sharp'
+import { BLOG } from 'src/config'
 import { fontFilesPath } from 'src/lib/fonts'
 
 export const GET: APIRoute = async ({ params: { slug } }) => {
@@ -48,10 +48,10 @@ export const GET: APIRoute = async ({ params: { slug } }) => {
     ]
   })
 
-  const png = new Sharp(Buffer.from(svg)).png()
+  const png = sharp(Buffer.from(svg)).png()
   const resp = await png.toBuffer()
 
-  return new Response(resp, {
+  return new Response(new Uint8Array(resp), {
     status: 200,
     headers: {
       'Content-Type': 'image/png',
