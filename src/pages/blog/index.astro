@@ -36,7 +36,7 @@ const posts = (await getCollection('blog', (entry) => !entry.data.draft)).sort(
             itemtype="https://schema.org/ListItem"
           >
             <meta itemprop="position" content={idx.toString()} />
-            <a class="block w-full" href={`/blog/${post.slug}`} itemprop="url">
+            <a class="block w-full" href={`/blog/${post.id}`} itemprop="url">
               {post.data.title}
             </a>
             <time class="text-xs" datetime={post.data.pubDate.toISOString()}>
